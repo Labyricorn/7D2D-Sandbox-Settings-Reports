@@ -1,0 +1,4107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SANDBOX OPTIONS - 7 Days to Die</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&family=Inter:wght@400;500;600;700&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-dark: #060608;
+            --panel-bg: rgba(10, 10, 14, 0.9);
+            --border-grey: #3c3c44;
+            --border-red: #c62828;
+            --text-white: #ffffff;
+            --text-grey: #b0b0b8;
+            --text-yellow: #ffd54f;
+            --accent-red: #d32f2f;
+            --font-game: 'Oswald', sans-serif;
+            --font-body: 'Inter', sans-serif;
+            --font-mono: 'Fira Code', monospace;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            user-select: none;
+        }
+
+        body {
+            background-color: var(--bg-dark);
+            background-image: radial-gradient(circle at center, rgba(30, 10, 10, 0.4) 0%, rgba(5, 5, 5, 0.95) 100%);
+            color: var(--text-white);
+            font-family: var(--font-game);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+            padding: 1rem;
+        }
+
+        /* Game Main Border Wrapper */
+        .game-wrapper {
+            width: 100%;
+            max-width: 1280px;
+            height: 680px;
+            background-color: #000;
+            border: 2px solid var(--border-grey);
+            box-shadow: 0 15px 50px rgba(0, 0, 0, 0.9);
+            display: flex;
+            flex-direction: column;
+            position: relative;
+        }
+
+        /* Red Header */
+        .game-header {
+            height: 40px;
+            background-color: #000;
+            border-bottom: 2px solid var(--border-red);
+            display: flex;
+            align-items: center;
+            padding: 0 1.5rem;
+            position: relative;
+        }
+
+        .game-header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background-color: var(--border-red);
+        }
+
+        .game-header h2 {
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: var(--text-white);
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+
+        /* Panels Container */
+        .panels-container {
+            flex: 1;
+            display: grid;
+            grid-template-columns: 320px 1fr;
+            height: calc(100% - 40px);
+            background-color: #08080c;
+        }
+
+        /* ==================== LEFT COLUMN (PRESETS) ==================== */
+        .left-panel {
+            border-right: 2px solid var(--border-grey);
+            padding: 1.5rem;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            background-color: rgba(5, 5, 8, 0.5);
+            align-items: center;
+        }
+
+        /* Preset Card Artwork */
+        .preset-artwork-box {
+            width: 160px;
+            height: 160px;
+            border: 2px solid #55e6c1;
+            border-radius: 4px;
+            background: linear-gradient(135deg, #102a25 0%, #081412 100%);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            box-shadow: 0 0 15px rgba(85, 230, 193, 0.2);
+            transition: all 0.3s ease;
+        }
+
+        .preset-artwork-box.official {
+            border-color: #ff9f43;
+            background: linear-gradient(135deg, #2c1a0e 0%, #140b05 100%);
+            box-shadow: 0 0 15px rgba(255, 159, 67, 0.2);
+        }
+
+        .preset-artwork-box svg {
+            width: 90px;
+            height: 90px;
+            fill: #55e6c1;
+            opacity: 0.85;
+            transition: all 0.3s ease;
+        }
+
+        .preset-artwork-box.official svg {
+            fill: #ff9f43;
+        }
+
+        .skull-badge {
+            position: absolute;
+            right: -25px;
+            top: 50%;
+            transform: translateY(-50%);
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            background-color: rgba(0, 0, 0, 0.8);
+            border: 1px solid var(--border-red);
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-size: 0.9rem;
+            font-weight: 700;
+            color: var(--accent-red);
+        }
+
+        /* Steppers */
+        .selector-row {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+            margin-top: 0.5rem;
+        }
+
+        .game-stepper {
+            width: 100%;
+            height: 32px;
+            background-color: #000;
+            border: 1px solid var(--border-grey);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 0.5rem;
+            cursor: pointer;
+        }
+
+        .game-stepper:hover {
+            border-color: var(--text-white);
+        }
+
+        .stepper-arrow {
+            color: var(--text-grey);
+            font-size: 1.1rem;
+            font-weight: 700;
+            padding: 0 0.5rem;
+            transition: color 0.1s ease;
+        }
+
+        .game-stepper:hover .stepper-arrow {
+            color: var(--text-white);
+        }
+
+        .stepper-arrow:hover {
+            color: var(--accent-red) !important;
+        }
+
+        .stepper-value {
+            font-size: 1.05rem;
+            font-weight: 600;
+            color: var(--text-white);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        /* Preset Description Box */
+        .desc-box {
+            width: 100%;
+            height: 75px;
+            border: 1px solid var(--border-grey);
+            background-color: rgba(0, 0, 0, 0.6);
+            padding: 8px 12px;
+            font-family: var(--font-body);
+            font-size: 0.82rem;
+            color: var(--text-grey);
+            overflow-y: auto;
+            line-height: 1.3;
+        }
+
+        /* Left Side Buttons */
+        .left-btn-group {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        .game-btn {
+            width: 100%;
+            height: 30px;
+            background-color: #000;
+            border: 1px solid var(--border-grey);
+            color: var(--text-white);
+            font-family: var(--font-game);
+            font-size: 0.95rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            cursor: pointer;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            transition: all 0.1s ease;
+            letter-spacing: 0.5px;
+        }
+
+        .game-btn:hover {
+            background-color: var(--text-white);
+            color: #000;
+        }
+
+        /* Code copy/paste row */
+        .code-box-row {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+            margin-top: 0.5rem;
+        }
+
+        .code-display-box {
+            width: 100%;
+            height: 75px;
+            background-color: #000;
+            border: 1px solid var(--border-grey);
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            padding: 0.5rem;
+            font-family: var(--font-mono);
+            font-size: 0.82rem;
+            color: var(--text-grey);
+            position: relative;
+        }
+
+        .code-text-area {
+            flex: 1;
+            word-wrap: break-word;
+            word-break: break-all;
+            white-space: normal;
+            overflow-y: auto;
+            height: 100%;
+            padding-right: 4px;
+            text-align: left;
+        }
+
+        .copy-icon-btn {
+            background: none;
+            border: none;
+            color: var(--text-grey);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            padding: 0 4px;
+            flex-shrink: 0;
+        }
+
+        .copy-icon-btn:hover {
+            color: var(--text-white);
+        }
+
+        .paste-btn {
+            background-color: var(--border-grey);
+            border-color: var(--border-grey);
+        }
+
+        .paste-btn:hover {
+            background-color: var(--text-white);
+            color: #000;
+        }
+
+
+        /* ==================== RIGHT COLUMN (SETTINGS LIST) ==================== */
+        .right-panel {
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+            position: relative;
+        }
+
+        /* Tab Navigation Grid */
+        .tabs-grid {
+            background-color: #000;
+            padding: 8px 1.5rem;
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+            border-bottom: 2px solid var(--border-grey);
+        }
+
+        .tabs-row {
+            display: flex;
+            gap: 4px;
+        }
+
+        .game-tab {
+            background-color: rgba(20, 20, 25, 0.8);
+            border: 1px solid var(--border-grey);
+            color: var(--text-grey);
+            font-family: var(--font-game);
+            font-size: 1.05rem;
+            font-weight: 700;
+            padding: 4px 16px;
+            cursor: pointer;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            transition: all 0.15s ease;
+        }
+
+        .game-tab:hover {
+            border-color: var(--text-white);
+            color: var(--text-white);
+        }
+
+        .game-tab.active {
+            background-color: var(--border-red);
+            border-color: var(--border-red);
+            color: var(--text-white);
+            box-shadow: inset 0 2px 5px rgba(0,0,0,0.4);
+        }
+
+        .game-tab.sub-tab {
+            font-size: 0.95rem;
+            padding: 2px 12px;
+            color: var(--text-yellow);
+        }
+
+        .game-tab.sub-tab.active {
+            background-color: #ffb300;
+            border-color: #ffb300;
+            color: #000;
+        }
+
+        /* Scrollable Options List */
+        .options-list-viewport {
+            flex: 1;
+            padding: 1.5rem;
+            overflow-y: auto;
+            position: relative;
+            background-color: #07070a;
+        }
+
+        /* Two columns list */
+        .options-columns-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            column-gap: 3rem;
+            row-gap: 0.75rem;
+        }
+
+        .option-item-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 32px;
+            border-bottom: 1px solid rgba(60,60,68,0.3);
+            padding-bottom: 4px;
+        }
+
+        .option-label-text {
+            font-size: 1.05rem;
+            font-weight: 500;
+            color: var(--text-white);
+            letter-spacing: 0.2px;
+        }
+
+        /* Control value stepper */
+        .control-stepper {
+            width: 160px;
+            height: 28px;
+            background-color: #000;
+            border: 1px solid var(--border-grey);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 4px;
+        }
+
+        .control-stepper.modified {
+            border-color: var(--text-yellow);
+        }
+
+        .control-stepper.disabled {
+            opacity: 0.25;
+            pointer-events: none;
+        }
+
+        .control-arrow {
+            color: var(--text-grey);
+            font-size: 1rem;
+            font-weight: 700;
+            padding: 0 4px;
+            cursor: pointer;
+        }
+
+        .control-arrow:hover {
+            color: var(--text-white);
+        }
+
+        .control-value-text {
+            font-size: 0.95rem;
+            font-weight: 700;
+            color: var(--text-white);
+            text-align: center;
+            flex: 1;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .control-stepper.modified .control-value-text {
+            color: var(--text-yellow);
+        }
+
+        /* Custom Scrollbar */
+        .options-list-viewport::-webkit-scrollbar {
+            width: 6px;
+        }
+        .options-list-viewport::-webkit-scrollbar-track {
+            background: #000;
+        }
+        .options-list-viewport::-webkit-scrollbar-thumb {
+            background: var(--border-red);
+            border-radius: 2px;
+        }
+
+        /* Footer buttons row */
+        .panel-footer {
+            height: 50px;
+            background-color: #000;
+            border-top: 2px solid var(--border-grey);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 1.5rem;
+        }
+
+        .footer-btn-group {
+            display: flex;
+            gap: 10px;
+        }
+
+        .footer-btn {
+            height: 32px;
+            min-width: 100px;
+            padding: 0 1.25rem;
+        }
+
+        /* Paste overlay modal */
+        .modal-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: rgba(0, 0, 0, 0.85);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
+
+        .modal-box {
+            width: 420px;
+            background-color: #0c0c10;
+            border: 2px solid var(--border-red);
+            border-radius: 4px;
+            padding: 1.5rem;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            box-shadow: 0 0 30px rgba(198, 40, 40, 0.3);
+        }
+
+        .modal-title {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--text-white);
+            text-transform: uppercase;
+            border-bottom: 1px solid var(--border-grey);
+            padding-bottom: 0.25rem;
+        }
+
+        .modal-input {
+            width: 100%;
+            height: 36px;
+            background-color: #000;
+            border: 1px solid var(--border-grey);
+            color: #fff;
+            font-family: var(--font-mono);
+            font-size: 0.95rem;
+            padding: 0 0.5rem;
+            outline: none;
+        }
+
+        .modal-input:focus {
+            border-color: var(--border-red);
+        }
+
+        .modal-btn-row {
+            display: flex;
+            justify-content: flex-end;
+            gap: 8px;
+        }
+
+        /* Toast feedback */
+        .toast-msg {
+            position: absolute;
+            bottom: 60px;
+            left: 50%;
+            transform: translateX(-50%) translateY(30px);
+            background-color: #000;
+            border: 1px solid var(--border-red);
+            color: var(--text-white);
+            padding: 6px 16px;
+            border-radius: 4px;
+            font-size: 0.9rem;
+            opacity: 0;
+            transition: all 0.2s ease;
+            pointer-events: none;
+            z-index: 2000;
+        }
+
+        .toast-msg.show {
+            opacity: 1;
+            transform: translateX(-50%) translateY(0);
+        }
+    </style>
+</head>
+<body>
+
+    <div class="game-wrapper">
+        <!-- Header -->
+        <header class="game-header">
+            <h2>SANDBOX OPTIONS</h2>
+        </header>
+
+        <!-- Main Interface -->
+        <div class="panels-container">
+            
+            <!-- Left Panel (Presets) -->
+            <aside class="left-panel">
+                <!-- Preset Artwork -->
+                <div class="preset-artwork-box" id="preset-art">
+                    <svg viewBox="0 0 24 24">
+                        <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"/>
+                    </svg>
+                    <div class="skull-badge" id="skull-badge">
+                        💀 x2
+                    </div>
+                </div>
+
+                <!-- Stepper rows -->
+                <div class="selector-row">
+                    <!-- Preset Category -->
+                    <div class="game-stepper" id="preset-category-stepper">
+                        <span class="stepper-arrow" onclick="cyclePresetCategory(-1)">◀</span>
+                        <span class="stepper-value" id="preset-category-val">Difficulty</span>
+                        <span class="stepper-arrow" onclick="cyclePresetCategory(1)">▶</span>
+                    </div>
+
+                    <!-- Preset Name -->
+                    <div class="game-stepper" id="preset-name-stepper">
+                        <span class="stepper-arrow" onclick="cyclePresetName(-1)">◀</span>
+                        <span class="stepper-value" id="preset-name-val">Scavenger</span>
+                        <span class="stepper-arrow" onclick="cyclePresetName(1)">▶</span>
+                    </div>
+                </div>
+
+                <!-- Description -->
+                <div class="desc-box" id="preset-desc">
+                    Beginner: A cakewalk in the apocalypse, training wheels included.
+                </div>
+
+                <!-- Action Buttons -->
+                <div class="left-btn-group">
+                    <button class="game-btn" onclick="createCustomPreset()">Create Preset</button>
+                    <button class="game-btn" onclick="duplicateActivePreset()">Duplicate Preset</button>
+                    <button class="game-btn" onclick="deleteActivePreset()">Delete Preset</button>
+                </div>
+
+                <!-- Code Block -->
+                <div class="code-box-row">
+                    <div class="code-display-box">
+                        <div id="sandbox-code-text" class="code-text-area">AAAKABKACKADKARDBNB</div>
+                        <button class="copy-icon-btn" onclick="copyCodeToClipboard()">
+                            <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+                        </button>
+                    </div>
+                    <button class="game-btn paste-btn" onclick="showPasteModal()">Paste Code</button>
+                </div>
+            </aside>
+
+            <!-- Right Panel (Options & Tabs) -->
+            <main class="right-panel">
+                <!-- Tabs navigation -->
+                <div class="tabs-grid">
+                    <!-- Main tabs row -->
+                    <div class="tabs-row" id="main-tabs-row">
+                        <!-- Loaded dynamically -->
+                    </div>
+                    <!-- Sub tabs row (if any) -->
+                    <div class="tabs-row" id="sub-tabs-row" style="display:none;">
+                        <!-- Loaded dynamically -->
+                    </div>
+                </div>
+
+                <!-- Scrollable Options List -->
+                <div class="options-list-viewport">
+                    <div class="options-columns-container" id="options-columns-list">
+                        <!-- Options loaded dynamically -->
+                    </div>
+                </div>
+
+                <!-- Footer buttons -->
+                <footer class="panel-footer">
+                    <button class="game-btn footer-btn" onclick="window.history.back()">Back</button>
+                    <div class="footer-btn-group">
+                        <button class="game-btn footer-btn" onclick="resetToDefaults()">Defaults</button>
+                        <button class="game-btn footer-btn" onclick="saveSettings()">Save</button>
+                    </div>
+                </footer>
+            </main>
+
+        </div>
+    </div>
+
+    <!-- Paste Modal -->
+    <div class="modal-overlay" id="paste-modal">
+        <div class="modal-box">
+            <h3 class="modal-title">Paste Sandbox Code</h3>
+            <input type="text" class="modal-input" id="paste-modal-input" placeholder="Paste Code (e.g. AAAKABKACKADKARDBNB)">
+            <div class="modal-btn-row">
+                <button class="game-btn" style="width: 80px;" onclick="closePasteModal()">Cancel</button>
+                <button class="game-btn" style="width: 80px;" onclick="applyPasteCode()">Import</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast message -->
+    <div class="toast-msg" id="toast-msg">Code copied!</div>
+
+    <script>
+        // Data passed from Python generator
+        const valueSets = {
+  "MaxTechType": {
+    "Type": "SandboxOptionValueSetInt",
+    "Values": [
+      0,
+      1,
+      2,
+      3,
+      4
+    ]
+  },
+  "Gravity": {
+    "Type": "SandboxOptionValueSetFloat",
+    "Values": [
+      0.5,
+      0.6,
+      0.7,
+      0.8,
+      0.9,
+      1
+    ]
+  },
+  "LoseItemCount": {
+    "Type": "SandboxOptionValueSetInt",
+    "Values": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10
+    ]
+  },
+  "CropGrowthSpeed": {
+    "Type": "SandboxOptionValueSetFloat",
+    "Values": [
+      1000,
+      0,
+      0.2,
+      0.5,
+      0.75,
+      1,
+      1.5,
+      2,
+      3
+    ]
+  },
+  "DamageValuesNoNone": {
+    "Type": "SandboxOptionValueSetFloat",
+    "Values": [
+      0.25,
+      0.35,
+      0.5,
+      0.65,
+      0.75,
+      0.85,
+      1,
+      1.25,
+      1.5,
+      2,
+      2.5,
+      3
+    ]
+  },
+  "YesNo": {
+    "Type": "SandboxOptionValueSetBool",
+    "Values": [
+      false,
+      true
+    ]
+  },
+  "CollectorOutput": {
+    "Type": "SandboxOptionValueSetFloat",
+    "Values": [
+      1,
+      2,
+      3,
+      4,
+      5
+    ]
+  },
+  "TraderHourPresets": {
+    "Type": "SandboxOptionValueSetInt",
+    "Values": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6
+    ]
+  },
+  "XPGain": {
+    "Type": "SandboxOptionValueSetFloat",
+    "Values": [
+      0,
+      0.25,
+      0.5,
+      0.75,
+      1,
+      1.25,
+      1.5,
+      1.75,
+      2,
+      3,
+      5
+    ]
+  },
+  "DewCollectorInput": {
+    "Type": "SandboxOptionValueSetFloat",
+    "Values": [
+      0,
+      1,
+      2,
+      3
+    ]
+  },
+  "AirDrops": {
+    "Type": "SandboxOptionValueSetInt",
+    "Values": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6
+    ]
+  },
+  "StaminaUsage": {
+    "Type": "SandboxOptionValueSetFloat",
+    "Values": [
+      0,
+      0.25,
+      0.5,
+      0.75,
+      1,
+      1.25,
+      1.5,
+      1.75,
+      2
+    ]
+  },
+  "MaxDegradationAmounts": {
+    "Type": "SandboxOptionValueSetFloat",
+    "Values": [
+      0,
+      0.05,
+      0.1,
+      0.15,
+      0.2,
+      0.25
+    ]
+  },
+  "SmeltingType": {
+    "Type": "SandboxOptionValueSetBool",
+    "Values": [
+      false,
+      true
+    ]
+  },
+  "JumpStrength": {
+    "Type": "SandboxOptionValueSetFloat",
+    "Values": [
+      0,
+      0.5,
+      1,
+      1.25,
+      1.5,
+      2,
+      3
+    ]
+  },
+  "DayLightLength": {
+    "Type": "SandboxOptionValueSetInt",
+    "Values": [
+      0,
+      4,
+      6,
+      8,
+      10,
+      12,
+      14,
+      16,
+      18,
+      20,
+      24
+    ]
+  },
+  "SlowToFast": {
+    "Type": "SandboxOptionValueSetInt",
+    "Values": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5
+    ]
+  },
+  "AISmellMode": {
+    "Type": "SandboxOptionValueSetInt",
+    "Values": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5
+    ]
+  },
+  "TraderResetInterval": {
+    "Type": "SandboxOptionValueSetInt",
+    "Values": [
+      -1,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      14
+    ]
+  },
+  "DropOnQuit": {
+    "Type": "SandboxOptionValueSetInt",
+    "Values": [
+      0,
+      1,
+      2,
+      3
+    ]
+  },
+  "BackpackCrafting": {
+    "Type": "SandboxOptionValueSetInt",
+    "Values": [
+      0,
+      1,
+      2,
+      3
+    ]
+  },
+  "ShowXP": {
+    "Type": "SandboxOptionValueSetInt",
+    "Values": [
+      0,
+      1,
+      2,
+      3
+    ]
+  },
+  "Encumbrance": {
+    "Type": "SandboxOptionValueSetFloat",
+    "Values": [
+      10,
+      1.35,
+      1,
+      0.7,
+      0.35,
+      0
+    ]
+  },
+  "DeathPenalty": {
+    "Type": "SandboxOptionValueSetInt",
+    "Values": [
+      0,
+      1,
+      2,
+      3
+    ]
+  },
+  "BiomeEnemyDensity": {
+    "Type": "SandboxOptionValueSetInt",
+    "Values": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5
+    ]
+  },
+  "DayNightLength": {
+    "Type": "SandboxOptionValueSetInt",
+    "Values": [
+      10,
+      20,
+      30,
+      40,
+      50,
+      60,
+      90,
+      120
+    ]
+  },
+  "ApiaryInput": {
+    "Type": "SandboxOptionValueSetFloat",
+    "Values": [
+      0,
+      0.2,
+      0.4,
+      0.6,
+      0.8,
+      1,
+      1.5,
+      2,
+      3
+    ]
+  },
+  "PlayerSpeedValuesWithNone": {
+    "Type": "SandboxOptionValueSetFloat",
+    "Values": [
+      0.25,
+      0.5,
+      0.6,
+      0.7,
+      0.8,
+      0.9,
+      1,
+      1.1,
+      1.2,
+      1.3,
+      1.4,
+      1.5,
+      2,
+      3
+    ]
+  },
+  "QuestPerTier": {
+    "Type": "SandboxOptionValueSetInt",
+    "Values": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      15
+    ]
+  },
+  "LootRespawnDays": {
+    "Type": "SandboxOptionValueSetInt",
+    "Values": [
+      -1,
+      5,
+      7,
+      10,
+      15,
+      20,
+      30,
+      40,
+      50
+    ]
+  },
+  "DisabledLowDefaultHigh": {
+    "Type": "SandboxOptionValueSetFloat",
+    "Values": [
+      0,
+      0.25,
+      0.5,
+      1,
+      1.5,
+      2
+    ]
+  },
+  "StaminaRegen": {
+    "Type": "SandboxOptionValueSetFloat",
+    "Values": [
+      0.25,
+      0.5,
+      0.75,
+      1,
+      1.25,
+      1.5,
+      2,
+      3
+    ]
+  },
+  "LoseItemsOnDeathType": {
+    "Type": "SandboxOptionValueSetInt",
+    "Values": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5
+    ]
+  },
+  "DegradeItemsOnDeath": {
+    "Type": "SandboxOptionValueSetInt",
+    "Values": [
+      0,
+      1,
+      2,
+      3
+    ]
+  },
+  "BloodMoonFrequency": {
+    "Type": "SandboxOptionValueSetInt",
+    "Values": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      14,
+      20,
+      30
+    ]
+  },
+  "DamageValues": {
+    "Type": "SandboxOptionValueSetFloat",
+    "Values": [
+      0,
+      0.25,
+      0.35,
+      0.5,
+      0.65,
+      0.75,
+      0.85,
+      1,
+      1.25,
+      1.5,
+      2,
+      2.5,
+      3
+    ]
+  },
+  "BloodMoonRange": {
+    "Type": "SandboxOptionValueSetInt",
+    "Values": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      7,
+      10,
+      14,
+      20
+    ]
+  },
+  "AirDropRandomTime": {
+    "Type": "SandboxOptionValueSetInt",
+    "Values": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6
+    ]
+  },
+  "TraderArea": {
+    "Type": "SandboxOptionValueSetInt",
+    "Values": [
+      0,
+      1,
+      2
+    ]
+  },
+  "LootAbundanceValues": {
+    "Type": "SandboxOptionValueSetFloat",
+    "Values": [
+      0,
+      0.25,
+      0.35,
+      0.5,
+      0.65,
+      0.75,
+      0.85,
+      1,
+      1.25,
+      1.5,
+      2,
+      3,
+      4,
+      5
+    ]
+  },
+  "HeadshotMode": {
+    "Type": "SandboxOptionValueSetInt",
+    "Values": [
+      0,
+      1,
+      2
+    ]
+  },
+  "PlayerSpeedValues": {
+    "Type": "SandboxOptionValueSetFloat",
+    "Values": [
+      0,
+      0.25,
+      0.5,
+      0.6,
+      0.7,
+      0.8,
+      0.9,
+      1,
+      1.1,
+      1.2,
+      1.3,
+      1.4,
+      1.5,
+      2,
+      3
+    ]
+  },
+  "BloodMoonWarning": {
+    "Type": "SandboxOptionValueSetInt",
+    "Values": [
+      0,
+      1,
+      2
+    ]
+  },
+  "SpeedValues": {
+    "Type": "SandboxOptionValueSetFloat",
+    "Values": [
+      0,
+      0.25,
+      0.5,
+      0.75,
+      1,
+      1.25,
+      1.5,
+      2,
+      3
+    ]
+  },
+  "ZombieSpeeds": {
+    "Type": "SandboxOptionValueSetInt",
+    "Values": [
+      0,
+      1,
+      2,
+      3,
+      4
+    ]
+  },
+  "LowDefaultHigh": {
+    "Type": "SandboxOptionValueSetFloat",
+    "Values": [
+      0.25,
+      0.5,
+      1,
+      1.5,
+      2
+    ]
+  },
+  "ZombieRageChance": {
+    "Type": "SandboxOptionValueSetFloat",
+    "Values": [
+      0,
+      0.15,
+      0.3,
+      0.35,
+      0.4,
+      0.5,
+      0.6,
+      0.75,
+      0.9,
+      1
+    ]
+  },
+  "DropOnDeath": {
+    "Type": "SandboxOptionValueSetInt",
+    "Values": [
+      0,
+      1,
+      2,
+      3,
+      4
+    ]
+  },
+  "ZombieFeralSense": {
+    "Type": "SandboxOptionValueSetInt",
+    "Values": [
+      0,
+      1,
+      2,
+      3
+    ]
+  },
+  "Celebrate": {
+    "Type": "SandboxOptionValueSetInt",
+    "Values": [
+      0,
+      1,
+      2
+    ]
+  },
+  "MaxChunkAge": {
+    "Type": "SandboxOptionValueSetInt",
+    "Values": [
+      -1,
+      1,
+      3,
+      5,
+      7,
+      10,
+      20,
+      30,
+      40,
+      50,
+      75,
+      100
+    ]
+  },
+  "SkillGainRate": {
+    "Type": "SandboxOptionValueSetInt",
+    "Values": [
+      1,
+      2,
+      3,
+      4,
+      5
+    ]
+  },
+  "ItemTierOptions": {
+    "Type": "SandboxOptionValueSetInt",
+    "Values": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6
+    ]
+  },
+  "RepairTypes": {
+    "Type": "SandboxOptionValueSetInt",
+    "Values": [
+      0,
+      1,
+      2,
+      3
+    ]
+  },
+  "StormFrequency": {
+    "Type": "SandboxOptionValueSetFloat",
+    "Values": [
+      0,
+      0.5,
+      1,
+      1.5,
+      2,
+      3,
+      4,
+      5
+    ]
+  },
+  "BloodMoonCount": {
+    "Type": "SandboxOptionValueSetInt",
+    "Values": [
+      4,
+      6,
+      8,
+      10,
+      12,
+      16,
+      24,
+      32,
+      64
+    ]
+  },
+  "StarterSkillPoints": {
+    "Type": "SandboxOptionValueSetInt",
+    "Values": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10
+    ]
+  },
+  "BarterValues": {
+    "Type": "SandboxOptionValueSetFloat",
+    "Values": [
+      0,
+      0.25,
+      0.5,
+      0.75,
+      1,
+      1.25,
+      1.5,
+      1.75,
+      2,
+      3,
+      4
+    ]
+  },
+  "PointsPer": {
+    "Type": "SandboxOptionValueSetInt",
+    "Values": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7
+    ]
+  },
+  "QuestPerDay": {
+    "Type": "SandboxOptionValueSetInt",
+    "Values": [
+      -1,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10
+    ]
+  },
+  "JarRefund": {
+    "Type": "SandboxOptionValueSetFloat",
+    "Values": [
+      0,
+      0.05,
+      0.1,
+      0.2,
+      0.3,
+      0.4,
+      0.5,
+      0.6,
+      0.7,
+      0.8,
+      0.9,
+      1
+    ]
+  },
+  "MaxEnemyType": {
+    "Type": "SandboxOptionValueSetInt",
+    "Values": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5
+    ]
+  }
+};
+        const categories = [
+  {
+    "CategoryName": "General",
+    "DisplayName": "Player",
+    "Options": [
+      {
+        "OptionName": "Ranged Damage",
+        "OptionEnumName": "RangedDamage",
+        "OptionType": "Float",
+        "OverrideOptionName": null,
+        "ValueSetName": "DamageValues",
+        "DefaultValue": 1,
+        "IsPercent": false,
+        "NewUISection": false,
+        "DisabledOptions": null
+      },
+      {
+        "OptionName": "Melee Damage",
+        "OptionEnumName": "MeleeDamage",
+        "OptionType": "Float",
+        "OverrideOptionName": null,
+        "ValueSetName": "DamageValues",
+        "DefaultValue": 1,
+        "IsPercent": false,
+        "NewUISection": false,
+        "DisabledOptions": null
+      },
+      {
+        "OptionName": "Block Damage",
+        "OptionEnumName": "BlockDamage",
+        "OptionType": "Float",
+        "OverrideOptionName": "goBlockDamagePlayer",
+        "ValueSetName": "DamageValues",
+        "DefaultValue": 1,
+        "IsPercent": false,
+        "NewUISection": false,
+        "DisabledOptions": null
+      },
+      {
+        "OptionName": "Terrain Damage",
+        "OptionEnumName": "TerrainDamage",
+        "OptionType": "Float",
+        "OverrideOptionName": null,
+        "ValueSetName": "DamageValues",
+        "DefaultValue": 1,
+        "IsPercent": false,
+        "NewUISection": false,
+        "DisabledOptions": null
+      },
+      {
+        "OptionName": "Headshot Multiplier",
+        "OptionEnumName": "HeadshotMultiplier",
+        "OptionType": "Float",
+        "OverrideOptionName": null,
+        "ValueSetName": "DamageValues",
+        "DefaultValue": 1,
+        "IsPercent": false,
+        "NewUISection": false,
+        "DisabledOptions": null
+      },
+      {
+        "OptionName": "Incoming Damage",
+        "OptionEnumName": "IncomingDamage",
+        "OptionType": "Float",
+        "OverrideOptionName": null,
+        "ValueSetName": "DamageValues",
+        "DefaultValue": 1,
+        "IsPercent": false,
+        "NewUISection": false,
+        "DisabledOptions": null
+      },
+      {
+        "OptionName": "Walk Speed",
+        "OptionEnumName": "WalkSpeed",
+        "OptionType": "Float",
+        "OverrideOptionName": null,
+        "ValueSetName": "PlayerSpeedValuesWithNone",
+        "DefaultValue": 1,
+        "IsPercent": false,
+        "NewUISection": true,
+        "DisabledOptions": null
+      },
+      {
+        "OptionName": "Run Speed",
+        "OptionEnumName": "RunSpeed",
+        "OptionType": "Float",
+        "OverrideOptionName": null,
+        "ValueSetName": "PlayerSpeedValues",
+        "DefaultValue": 1,
+        "IsPercent": false,
+        "NewUISection": false,
+        "DisabledOptions": null
+      },
+      {
+        "OptionName": "Crouch Speed",
+        "OptionEnumName": "CrouchSpeed",
+        "OptionType": "Float",
+        "OverrideOptionName": null,
+        "ValueSetName": "PlayerSpeedValues",
+        "DefaultValue": 1,
+        "IsPercent": false,
+        "NewUISection": false,
+        "DisabledOptions": null
+      },
+      {
+        "OptionName": "Jump Height",
+        "OptionEnumName": "JumpStrength",
+        "OptionType": "Float",
+        "OverrideOptionName": null,
+        "ValueSetName": "JumpStrength",
+        "DefaultValue": 1,
+        "IsPercent": false,
+        "NewUISection": false,
+        "DisabledOptions": null
+      },
+      {
+        "OptionName": "Stamina Regen",
+        "OptionEnumName": "StaminaRegen",
+        "OptionType": "Float",
+        "OverrideOptionName": null,
+        "ValueSetName": "StaminaRegen",
+        "DefaultValue": 1,
+        "IsPercent": false,
+        "NewUISection": false,
+        "DisabledOptions": null
+      },
+      {
+        "OptionName": "Stamina Usage",
+        "OptionEnumName": "StaminaUsage",
+        "OptionType": "Float",
+        "OverrideOptionName": null,
+        "ValueSetName": "StaminaUsage",
+        "DefaultValue": 1,
+        "IsPercent": false,
+        "NewUISection": false,
+        "DisabledOptions": {
+          "Inverted": false,
+          "DisabledOptions": "StaminaRegen",
+          "Value": 0
+        }
+      },
+      {
+        "OptionName": "XP Multiplier",
+        "OptionEnumName": "XPMultiplier",
+        "OptionType": "Float",
+        "OverrideOptionName": null,
+        "ValueSetName": "XPGain",
+        "DefaultValue": 1,
+        "IsPercent": false,
+        "NewUISection": true,
+        "DisabledOptions": null
+      },
+      {
+        "OptionName": "Show XP",
+        "OptionEnumName": "ShowXP",
+        "OptionType": "Int",
+        "OverrideOptionName": null,
+        "ValueSetName": "ShowXP",
+        "DefaultValue": 0,
+        "IsPercent": false,
+        "NewUISection": false,
+        "DisabledOptions": null
+      },
+      {
+        "OptionName": "Level Health/Stam Bonus",
+        "OptionEnumName": "PlayerLevelBonusApplied",
+        "OptionType": "Bool",
+        "OverrideOptionName": null,
+        "ValueSetName": "YesNo",
+        "DefaultValue": null,
+        "IsPercent": false,
+        "NewUISection": false,
+        "DisabledOptions": null
+      },
+      {
+        "OptionName": "Skill Gain Rate",
+        "OptionEnumName": "SkillGainRate",
+        "OptionType": "Int",
+        "OverrideOptionName": null,
+        "ValueSetName": "SkillGainRate",
+        "DefaultValue": 1,
+        "IsPercent": false,
+        "NewUISection": false,
+        "DisabledOptions": {
+          "Inverted": false,
+          "DisabledOptions": "SkillPointsPerLevel",
+          "Value": 0
+        }
+      },
+      {
+        "OptionName": "Skill Gain Amount",
+        "OptionEnumName": "SkillPointsPerLevel",
+        "OptionType": "Int",
+        "OverrideOptionName": null,
+        "ValueSetName": "PointsPer",
+        "DefaultValue": 1,
+        "IsPercent": false,
+        "NewUISection": false,
+        "DisabledOptions": null
+      },
+      {
+        "OptionName": "Death Penalty",
+        "OptionEnumName": "DeathPenalty",
+        "OptionType": "Int",
+        "OverrideOptionName": null,
+        "ValueSetName": "DeathPenalty",
+        "DefaultValue": 1,
+        "IsPercent": false,
+        "NewUISection": true,
+        "DisabledOptions": null
+      },
+      {
+        "OptionName": "Lose Items Death Type",
+        "OptionEnumName": "LoseItemsOnDeathType",
+        "OptionType": "Int",
+        "OverrideOptionName": null,
+        "ValueSetName": "LoseItemsOnDeathType",
+        "DefaultValue": 0,
+        "IsPercent": false,
+        "NewUISection": false,
+        "DisabledOptions": null
+      },
+      {
+        "OptionName": "Lose Items Death Count",
+        "OptionEnumName": "LoseItemsOnDeathCount",
+        "OptionType": "Int",
+        "OverrideOptionName": null,
+        "ValueSetName": "LoseItemCount",
+        "DefaultValue": 1,
+        "IsPercent": false,
+        "NewUISection": false,
+        "DisabledOptions": null
+      },
+      {
+        "OptionName": "Degrade Items On Death",
+        "OptionEnumName": "DegradeItemsOnDeath",
+        "OptionType": "Int",
+        "OverrideOptionName": null,
+        "ValueSetName": "DegradeItemsOnDeath",
+        "DefaultValue": 0,
+        "IsPercent": false,
+        "NewUISection": false,
+        "DisabledOptions": null
+      },
+      {
+        "OptionName": "Degrade Amount On Death",
+        "OptionEnumName": "DegradeAmountOnDeath",
+        "OptionType": "Float",
+        "OverrideOptionName": null,
+        "ValueSetName": "MaxDegradationAmounts",
+        "DefaultValue": 0.1,
+        "IsPercent": false,
+        "NewUISection": false,
+        "DisabledOptions": null
+      },
+      {
+        "OptionName": "Drop On Death",
+        "OptionEnumName": "DropOnDeath",
+        "OptionType": "Int",
+        "OverrideOptionName": null,
+        "ValueSetName": "DropOnDeath",
+        "DefaultValue": 1,
+        "IsPercent": false,
+        "NewUISection": false,
+        "DisabledOptions": null
+      },
+      {
+        "OptionName": "Drop On Quit",
+        "OptionEnumName": "DropOnQuit",
+        "OptionType": "Int",
+        "OverrideOptionName": null,
+        "ValueSetName": "DropOnQuit",
+        "DefaultValue": 0,
+        "IsPercent": false,
+        "NewUISection": false,
+        "DisabledOptions": null
+      },
+      {
+        "OptionName": "Infection Rate",
+        "OptionEnumName": "InfectionRate",
+        "OptionType": "Float",
+        "OverrideOptionName": null,
+        "ValueSetName": "SpeedValues",
+        "DefaultValue": 1,
+        "IsPercent": false,
+        "NewUISection": true,
+        "DisabledOptions": null
+      },
+      {
+        "OptionName": "Allow Newbie Coat",
+        "OptionEnumName": "NewbieCoat",
+        "OptionType": "Bool",
+        "OverrideOptionName": null,
+        "ValueSetName": "YesNo",
+        "DefaultValue": null,
+        "IsPercent": false,
+        "NewUISection": false,
+        "DisabledOptions": null
+      },
+      {
+        "OptionName": "Encumbrance Modifier",
+        "OptionEnumName": "EncumbranceModifier",
+        "OptionType": "Float",
+        "OverrideOptionName": null,
+        "ValueSetName": "Encumbrance",
+        "DefaultValue": 1,
+        "IsPercent": false,
+        "NewUISection": false,
+        "DisabledOptions": null
+      },
+      {
+        "OptionName": "Jar Refund",
+        "OptionEnumName": "JarRefund",
+        "OptionType": "Float",
+        "OverrideOptionName": null,
+        "ValueSetName": "JarRefund",
+        "DefaultValue": 0.6,
+        "IsPercent": false,
+        "NewUISection": false,
+        "DisabledOptions": null
+      }
+    ]
+  },
+  {
+    "CategoryName": "Entities",
+    "DisplayName": "Entities",
+    "Options": [
+      {
+        "OptionName": "Enemy Spawn",
+        "OptionEnumName": "EnemySpawnMode",
+        "OptionType": "Bool",
+        "OverrideOptionName": null,
+        "ValueSetName": "YesNo",
+        "DefaultValue": null,
+        "IsPercent": false,
+        "NewUISection": false,
+        "DisabledOptions": null
+      },
+      {
+        "OptionName": "Max Enemy Type",
+        "OptionEnumName": "MaxEnemyTier",
+        "OptionType": "Int",
+        "OverrideOptionName": null,
+        "ValueSetName": "MaxEnemyType",
+        "DefaultValue": 5,
+        "IsPercent": false,
+        "NewUISection": false,
+        "DisabledOptions": null
+      },
+      {
+        "OptionName": "Biome Enemy Density",
+        "OptionEnumName": "BiomeEnemyDensity",
+        "OptionType": "Int",
+        "OverrideOptionName": null,
+        "ValueSetName": "BiomeEnemyDensity",
+        "DefaultValue": 0,
+        "IsPercent": false,
+        "NewUISection": false,
+        "DisabledOptions": null
+      },
+      {
+        "OptionName": "Biome Enemy Respawn",
+        "OptionEnumName": "BiomeZombieRespawn",
+        "OptionType": "Int",
+        "OverrideOptionName": null,
+        "ValueSetName": "SlowToFast",
+        "DefaultValue": 0,
+        "IsPercent": false,
+        "NewUISection": false,
+        "DisabledOptions": null
+      },
+      {
+        "OptionName": "Biome Animal Respawn",
+        "OptionEnumName": "BiomeAnimalRespawn",
+        "OptionType": "Int",
+        "OverrideOptionName": null,
+        "ValueSetName": "SlowToFast",
+        "DefaultValue": 0,
+        "IsPercent": false,
+        "NewUISection": false,
+        "DisabledOptions": null
+      },
+      {
+        "OptionName": "Entity Damage",
+        "OptionEnumName": "EntityDamage",
+        "OptionType": "Float",
+        "OverrideOptionName": null,
+        "ValueSetName": "DamageValues",
+        "DefaultValue": 1,
+        "IsPercent": false,
+        "NewUISection": true,
+        "DisabledOptions": null
+      },
+      {
+        "OptionName": "Entity Incoming Damage",
+        "OptionEnumName": "EntityIncomingDamage",
+        "OptionType": "Float",
+        "OverrideOptionName": null,
+        "ValueSetName": "DamageValuesNoNone",
+        "DefaultValue": 1,
+        "IsPercent": false,
+        "NewUISection": false,
+        "DisabledOptions": null
+      },
+      {
+        "OptionName": "Entity Block Damage",
+        "OptionEnumName": "BlockDamageAI",
+        "OptionType": "Float",
+        "OverrideOptionName": null,
+        "ValueSetName": "DamageValues",
+        "DefaultValue": 1,
+        "IsPercent": false,
+        "NewUISection": false,
+        "DisabledOptions": null
+      },
+      {
+        "OptionName": "Blood Moon Block Damage",
+        "OptionEnumName": "BlockDamageAIBM",
+        "OptionType": "Float",
+        "OverrideOptionName": null,
+        "ValueSetName": "DamageValues",
+        "DefaultValue": 1,
+        "IsPercent": false,
+        "NewUISection": false,
+        "DisabledOptions": null
+      },
+      {
+        "OptionName": "Headshot Mode",
+        "OptionEnumName": "HeadshotMode",
+        "OptionType": "Int",
+        "OverrideOptionName": null,
+        "ValueSetName": "HeadshotMode",
+        "DefaultValue": 0,
+        "IsPercent": false,
+        "NewUISection": false,
+        "DisabledOptions": null
+      },
+      {
+        "OptionName": "Entity Health Bars",
+        "OptionEnumName": "ShowHealthBars",
+        "OptionType": "Bool",
+        "OverrideOptionName": null,
+        "ValueSetName": "YesNo",
+        "DefaultValue": null,
+        "IsPercent": false,
+        "NewUISection": false,
+        "DisabledOptions": null
+      },
+      {
+        "OptionName": "Show Entity Damage",
+        "OptionEnumName": "ShowEnemyDamage",
+        "OptionType": "Bool",
+        "OverrideOptionName": null,
+        "ValueSetName": "YesNo",
+        "DefaultValue": null,
+        "IsPercent": false,
+        "NewUISection": false,
+        "DisabledOptions": null
+      },
+      {
+        "OptionName": "Zombie Day Speed",
+        "OptionEnumName": "ZombieMove",
+        "OptionType": "Int",
+        "OverrideOptionName": null,
+        "ValueSetName": "ZombieSpeeds",
+        "DefaultValue": 0,
+        "IsPercent": false,
+        "NewUISection": true,
+        "DisabledOptions": null
+      },
+      {
+        "OptionName": "Zombie Night Speed",
+        "OptionEnumName": "ZombieMoveNight",
+        "OptionType": "Int",
+        "OverrideOptionName": null,
+        "ValueSetName": "ZombieSpeeds",
+        "DefaultValue": 3,
+        "IsPercent": false,
+        "NewUISection": false,
+        "DisabledOptions": null
+      },
+      {
+        "OptionName": "Zombie Feral Speed",
+        "OptionEnumName": "ZombieFeralMove",
+        "OptionType": "Int",
+        "OverrideOptionName": null,
+        "ValueSetName": "ZombieSpeeds",
+        "DefaultValue": 3,
+        "IsPercent": false,
+        "NewUISection": false,
+        "DisabledOptions": null
+      },
+      {
+        "OptionName": "Zombie Blood Moon Speed",
+        "OptionEnumName": "ZombieBMMove",
+        "OptionType": "Int",
+        "OverrideOptionName": null,
+        "ValueSetName": "ZombieSpeeds",
+        "DefaultValue": 3,
+        "IsPercent": false,
+        "NewUISection": false,
+        "DisabledOptions": null
+      },
+      {
+        "OptionName": "Zombie Feral Sense",
+        "OptionEnumName": "ZombieFeralSense",
+        "OptionType": "Int",
+        "OverrideOptionName": null,
+        "ValueSetName": "ZombieFeralSense",
+        "DefaultValue": 0,
+        "IsPercent": false,
+        "NewUISection": true,
+        "DisabledOptions": null
+      },
+      {
+        "OptionName": "Zombie AI Smell Mode",
+        "OptionEnumName": "AISmellMode",
+        "OptionType": "Int",
+        "OverrideOptionName": null,
+        "ValueSetName": "AISmellMode",
+        "DefaultValue": 3,
+        "IsPercent": false,
+        "NewUISection": false,
+        "DisabledOptions": null
+      },
+      {
+        "OptionName": "Zombie Rage Chance",
+        "OptionEnumName": "ZombieRageChance",
+        "OptionType": "Float",
+        "OverrideOptionName": null,
+        "ValueSetName": "ZombieRageChance",
+        "DefaultValue": 0.15,
+        "IsPercent": false,
+        "NewUISection": false,
+        "DisabledOptions": null
+      },
+      {
+        "OptionName": "Allow Zombie Digging",
+        "OptionEnumName": "AllowZombieDigging",
+        "OptionType": "Bool",
+        "OverrideOptionName": null,
+        "ValueSetName": "YesNo",
+        "DefaultValue": null,
+        "IsPercent": false,
+        "NewUISection": false,
+        "DisabledOptions": null
+      },
+      {
+        "OptionName": "Zombies Eat Animals",
+        "OptionEnumName": "ZombiesEatAnimals",
+        "OptionType": "Bool",
+        "OverrideOptionName": null,
+        "ValueSetName": "YesNo",
+        "DefaultValue": null,
+        "IsPercent": false,
+        "NewUISection": false,
+        "DisabledOptions": null
+      }
+    ]
+  },
+  {
+    "CategoryName": "World",
+    "DisplayName": "World",
+    "Options": [
+      {
+        "OptionName": "Global GameStage",
+        "OptionEnumName": "GlobalGSModifier",
+        "OptionType": "Float",
+        "OverrideOptionName": null,
+        "ValueSetName": "LowDefaultHigh",
+        "DefaultValue": 1,
+        "IsPercent": false,
+        "NewUISection": false,
+        "DisabledOptions": null
+      },
+      {
+        "OptionName": "Biome GameStage",
+        "OptionEnumName": "BiomeGSModifier",
+        "OptionType": "Float",
+        "OverrideOptionName": null,
+        "ValueSetName": "LowDefaultHigh",
+        "DefaultValue": 1,
+        "IsPercent": false,
+        "NewUISection": false,
+        "DisabledOptions": null
+      },
+      {
+        "OptionName": "Biome Progression",
+        "OptionEnumName": "BiomeProgression",
+        "OptionType": "Bool",
+        "OverrideOptionName": null,
+        "ValueSetName": "YesNo",
+        "DefaultValue": null,
+        "IsPercent": false,
+        "NewUISection": false,
+        "DisabledOptions": null
+      },
+      {
+        "OptionName": "Temperature Survival",
+        "OptionEnumName": "TemperatureSurvival",
+        "OptionType": "Bool",
+        "OverrideOptionName": null,
+        "ValueSetName": "YesNo",
+        "DefaultValue": null,
+        "IsPercent": false,
+        "NewUISection": false,
+        "DisabledOptions": null
+      },
+      {
+        "OptionName": "Max Tech Type",
+        "OptionEnumName": "MaxTechType",
+        "OptionType": "Int",
+        "OverrideOptionName": null,
+        "ValueSetName": "MaxTechType",
+        "DefaultValue": 4,
+        "IsPercent": false,
+        "NewUISection": false,
+        "DisabledOptions": null
+      },
+      {
+        "OptionName": "Workstations in the Wild",
+        "OptionEnumName": "WorkstationsInTheWild",
+        "OptionType": "Float",
+        "OverrideOptionName": null,
+        "ValueSetName": "JarRefund",
+        "DefaultValue": 0,
+        "IsPercent": false,
+        "NewUISection": false,
+        "DisabledOptions": null
+      },
+      {
+        "OptionName": "Blood Moon Frequency",
+        "OptionEnumName": "BloodMoonFrequency",
+        "OptionType": "Int",
+        "OverrideOptionName": null,
+        "ValueSetName": "BloodMoonFrequency",
+        "DefaultValue": 7,
+        "IsPercent": false,
+        "NewUISection": true,
+        "DisabledOptions": {
+          "Inverted": false,
+          "DisabledOptions": [
+            "BloodMoonRange",
+            "BloodMoonEnemyCount",
+            "BloodMoonWarning"
+          ],
+          "Value": 0
+        }
+      },
+      {
+        "OptionName": "Blood Moon Range",
+        "OptionEnumName": "BloodMoonRange",
+        "OptionType": "Int",
+        "OverrideOptionName": null,
+        "ValueSetName": "BloodMoonRange",
+        "DefaultValue": 0,
+        "IsPercent": false,
+        "NewUISection": false,
+        "DisabledOptions": null
+      },
+      {
+        "OptionName": "Blood Moon Count",
+        "OptionEnumName": "BloodMoonEnemyCount",
+        "OptionType": "Int",
+        "OverrideOptionName": null,
+        "ValueSetName": "BloodMoonCount",
+        "DefaultValue": 8,
+        "IsPercent": false,
+        "NewUISection": false,
+        "DisabledOptions": null
+      },
+      {
+        "OptionName": "Blood Moon Warning",
+        "OptionEnumName": "BloodMoonWarning",
+        "OptionType": "Int",
+        "OverrideOptionName": null,
+        "ValueSetName": "BloodMoonWarning",
+        "DefaultValue": 1,
+        "IsPercent": false,
+        "NewUISection": false,
+        "DisabledOptions": null
+      },
+      {
+        "OptionName": "Air Drops",
+        "OptionEnumName": "AirDropFrequency",
+        "OptionType": "Int",
+        "OverrideOptionName": null,
+        "ValueSetName": "AirDrops",
+        "DefaultValue": 3,
+        "IsPercent": false,
+        "NewUISection": false,
+        "DisabledOptions": {
+          "Inverted": false,
+          "DisabledOptions": [
+            "AirDropRandomTime",
+            "AirDropMarker"
+          ],
+          "Value": 0
+        }
+      },
+      {
+        "OptionName": "Air Drop Random Time",
+        "OptionEnumName": "AirDropRandomTime",
+        "OptionType": "Int",
+        "OverrideOptionName": null,
+        "ValueSetName": "AirDropRandomTime",
+        "DefaultValue": 0,
+        "IsPercent": false,
+        "NewUISection": false,
+        "DisabledOptions": null
+      },
+      {
+        "OptionName": "Storm Frequency",
+        "OptionEnumName": "StormFreq",
+        "OptionType": "Float",
+        "OverrideOptionName": null,
+        "ValueSetName": "StormFrequency",
+        "DefaultValue": 1,
+        "IsPercent": false,
+        "NewUISection": true,
+        "DisabledOptions": {
+          "Inverted": false,
+          "DisabledOptions": "StormWarning",
+          "Value": 0
+        }
+      },
+      {
+        "OptionName": "Storm Warning",
+        "OptionEnumName": "StormWarning",
+        "OptionType": "Bool",
+        "OverrideOptionName": null,
+        "ValueSetName": "YesNo",
+        "DefaultValue": null,
+        "IsPercent": false,
+        "NewUISection": false,
+        "DisabledOptions": null
+      },
+      {
+        "OptionName": "Heatmap Sensitivity",
+        "OptionEnumName": "HeatMapSensitivity",
+        "OptionType": "Float",
+        "OverrideOptionName": null,
+        "ValueSetName": "DisabledLowDefaultHigh",
+        "DefaultValue": 1,
+        "IsPercent": false,
+        "NewUISection": false,
+        "DisabledOptions": null
+      },
+      {
+        "OptionName": "24 Day Cycle",
+        "OptionEnumName": "DayNightLength",
+        "OptionType": "Int",
+        "OverrideOptionName": null,
+        "ValueSetName": "DayNightLength",
+        "DefaultValue": 60,
+        "IsPercent": false,
+        "NewUISection": false,
+        "DisabledOptions": null
+      },
+      {
+        "OptionName": "Day Light Length",
+        "OptionEnumName": "DayLightLength",
+        "OptionType": "Int",
+        "OverrideOptionName": null,
+        "ValueSetName": "DayLightLength",
+        "DefaultValue": 18,
+        "IsPercent": false,
+        "NewUISection": false,
+        "DisabledOptions": null
+      },
+      {
+        "OptionName": "Mark Air Drops",
+        "OptionEnumName": "AirDropMarker",
+        "OptionType": "Bool",
+        "OverrideOptionName": "goMarkAirDrops",
+        "ValueSetName": "YesNo",
+        "DefaultValue": null,
+        "IsPercent": false,
+        "NewUISection": true,
+        "DisabledOptions": null
+      },
+      {
+        "OptionName": "Allow Map",
+        "OptionEnumName": "AllowMap",
+        "OptionType": "Bool",
+        "OverrideOptionName": null,
+        "ValueSetName": "YesNo",
+        "DefaultValue": null,
+        "IsPercent": false,
+        "NewUISection": false,
+        "DisabledOptions": null
+      },
+      {
+        "OptionName": "Allow Compass",
+        "OptionEnumName": "AllowCompass",
+        "OptionType": "Bool",
+        "OverrideOptionName": null,
+        "ValueSetName": "YesNo",
+        "DefaultValue": null,
+        "IsPercent": false,
+        "NewUISection": false,
+        "DisabledOptions": null
+      },
+      {
+        "OptionName": "Allow Screen Markers",
+        "OptionEnumName": "AllowScreenMarkers",
+        "OptionType": "Bool",
+        "OverrideOptionName": null,
+        "ValueSetName": "YesNo",
+        "DefaultValue": null,
+        "IsPercent": false,
+        "NewUISection": false,
+        "DisabledOptions": null
+      },
+      {
+        "OptionName": "Show Location Info",
+        "OptionEnumName": "ShowLocationInfo",
+        "OptionType": "Bool",
+        "OverrideOptionName": null,
+        "ValueSetName": "YesNo",
+        "DefaultValue": null,
+        "IsPercent": false,
+        "NewUISection": false,
+        "DisabledOptions": null
+      },
+      {
+        "OptionName": "Show Day/Time",
+        "OptionEnumName": "ShowDayTime",
+        "OptionType": "Bool",
+        "OverrideOptionName": null,
+        "ValueSetName": "YesNo",
+        "DefaultValue": null,
+        "IsPercent": false,
+        "NewUISection": false,
+        "DisabledOptions": null
+      }
+    ]
+  },
+  {
+    "CategoryName": "Resources",
+    "DisplayName": "Resources",
+    "Options": [
+      {
+        "OptionName": "Loot Max Tier",
+        "OptionEnumName": "LootMaxTier",
+        "OptionType": "Int",
+        "OverrideOptionName": null,
+        "ValueSetName": "ItemTierOptions",
+        "DefaultValue": 6,
+        "IsPercent": false,
+        "NewUISection": false,
+        "DisabledOptions": null
+      },
+      {
+        "OptionName": "Global LootStage",
+        "OptionEnumName": "GlobalLSModifier",
+        "OptionType": "Float",
+        "OverrideOptionName": null,
+        "ValueSetName": "LowDefaultHigh",
+        "DefaultValue": 1,
+        "IsPercent": false,
+        "NewUISection": false,
+        "DisabledOptions": null
+      },
+      {
+        "OptionName": "Biome LootStage",
+        "OptionEnumName": "BiomeLSModifier",
+        "OptionType": "Float",
+        "OverrideOptionName": null,
+        "ValueSetName": "LowDefaultHigh",
+        "DefaultValue": 1,
+        "IsPercent": false,
+        "NewUISection": false,
+        "DisabledOptions": null
+      },
+      {
+        "OptionName": "POI Tier LootStage",
+        "OptionEnumName": "POITierLSModifier",
+        "OptionType": "Float",
+        "OverrideOptionName": null,
+        "ValueSetName": "LowDefaultHigh",
+        "DefaultValue": 1,
+        "IsPercent": false,
+        "NewUISection": false,
+        "DisabledOptions": null
+      },
+      {
+        "OptionName": "Loot Respawn Days",
+        "OptionEnumName": "LootRespawnDays",
+        "OptionType": "Int",
+        "OverrideOptionName": null,
+        "ValueSetName": "LootRespawnDays",
+        "DefaultValue": 7,
+        "IsPercent": false,
+        "NewUISection": true,
+        "DisabledOptions": null
+      },
+      {
+        "OptionName": "Loot Time",
+        "OptionEnumName": "LootTimer",
+        "OptionType": "Float",
+        "OverrideOptionName": null,
+        "ValueSetName": "SpeedValues",
+        "DefaultValue": 1,
+        "IsPercent": false,
+        "NewUISection": false,
+        "DisabledOptions": null
+      },
+      {
+        "OptionName": "Loot Bag Chance",
+        "OptionEnumName": "LootBagChance",
+        "OptionType": "Float",
+        "OverrideOptionName": null,
+        "ValueSetName": "LootAbundanceValues",
+        "DefaultValue": 1,
+        "IsPercent": false,
+        "NewUISection": false,
+        "DisabledOptions": null
+      },
+      {
+        "OptionName": "Global Loot Abundance",
+        "OptionEnumName": "GlobalLootCount",
+        "OptionType": "Float",
+        "OverrideOptionName": "goLootAbundance",
+        "ValueSetName": "LootAbundanceValues",
+        "DefaultValue": 1,
+        "IsPercent": false,
+        "NewUISection": true,
+        "DisabledOptions": {
+          "Inverted": false,
+          "DisabledOptions": [
+            "FoodLootCount",
+            "DrinkLootCount",
+            "MedicalLootCount",
+            "AmmoLootCount",
+            "ResourceLootCount",
+            "ArmorLootCount",
+            "MeleeLootCount",
+            "RangedLootCount",
+            "DukesLootCount",
+            "CraftingMagazinesLootCount",
+            "TreasureMapChance"
+          ],
+          "Value": 0
+        }
+      },
+      {
+        "OptionName": "Food Abundance",
+        "OptionEnumName": "FoodLootCount",
+        "OptionType": "Float",
+        "OverrideOptionName": null,
+        "ValueSetName": "LootAbundanceValues",
+        "DefaultValue": 1,
+        "IsPercent": false,
+        "NewUISection": false,
+        "DisabledOptions": null
+      },
+      {
+        "OptionName": "Drink Abundance",
+        "OptionEnumName": "DrinkLootCount",
+        "OptionType": "Float",
+        "OverrideOptionName": null,
+        "ValueSetName": "LootAbundanceValues",
+        "DefaultValue": 1,
+        "IsPercent": false,
+        "NewUISection": false,
+        "DisabledOptions": null
+      },
+      {
+        "OptionName": "Medical Abundance",
+        "OptionEnumName": "MedicalLootCount",
+        "OptionType": "Float",
+        "OverrideOptionName": null,
+        "ValueSetName": "LootAbundanceValues",
+        "DefaultValue": 1,
+        "IsPercent": false,
+        "NewUISection": false,
+        "DisabledOptions": null
+      },
+      {
+        "OptionName": "Ammo Abundance",
+        "OptionEnumName": "AmmoLootCount",
+        "OptionType": "Float",
+        "OverrideOptionName": null,
+        "ValueSetName": "LootAbundanceValues",
+        "DefaultValue": 1,
+        "IsPercent": false,
+        "NewUISection": false,
+        "DisabledOptions": null
+      },
+      {
+        "OptionName": "Resource Abundance",
+        "OptionEnumName": "ResourceLootCount",
+        "OptionType": "Float",
+        "OverrideOptionName": null,
+        "ValueSetName": "LootAbundanceValues",
+        "DefaultValue": 1,
+        "IsPercent": false,
+        "NewUISection": false,
+        "DisabledOptions": null
+      },
+      {
+        "OptionName": "Armor Abundance",
+        "OptionEnumName": "ArmorLootCount",
+        "OptionType": "Float",
+        "OverrideOptionName": null,
+        "ValueSetName": "LootAbundanceValues",
+        "DefaultValue": 1,
+        "IsPercent": false,
+        "NewUISection": false,
+        "DisabledOptions": null
+      },
+      {
+        "OptionName": "Melee Abundance",
+        "OptionEnumName": "MeleeLootCount",
+        "OptionType": "Float",
+        "OverrideOptionName": null,
+        "ValueSetName": "LootAbundanceValues",
+        "DefaultValue": 1,
+        "IsPercent": false,
+        "NewUISection": false,
+        "DisabledOptions": null
+      },
+      {
+        "OptionName": "Ranged Abundance",
+        "OptionEnumName": "RangedLootCount",
+        "OptionType": "Float",
+        "OverrideOptionName": null,
+        "ValueSetName": "LootAbundanceValues",
+        "DefaultValue": 1,
+        "IsPercent": false,
+        "NewUISection": false,
+        "DisabledOptions": null
+      },
+      {
+        "OptionName": "Dukes Abundance",
+        "OptionEnumName": "DukesLootCount",
+        "OptionType": "Float",
+        "OverrideOptionName": null,
+        "ValueSetName": "LootAbundanceValues",
+        "DefaultValue": 1,
+        "IsPercent": false,
+        "NewUISection": false,
+        "DisabledOptions": null
+      },
+      {
+        "OptionName": "Magazines Abundance",
+        "OptionEnumName": "CraftingMagazinesLootCount",
+        "OptionType": "Float",
+        "OverrideOptionName": null,
+        "ValueSetName": "LootAbundanceValues",
+        "DefaultValue": 1,
+        "IsPercent": false,
+        "NewUISection": false,
+        "DisabledOptions": null
+      },
+      {
+        "OptionName": "Treasure Map Chance",
+        "OptionEnumName": "TreasureMapChance",
+        "OptionType": "Float",
+        "OverrideOptionName": null,
+        "ValueSetName": "PlayerSpeedValues",
+        "DefaultValue": 1,
+        "IsPercent": false,
+        "NewUISection": false,
+        "DisabledOptions": null
+      },
+      {
+        "OptionName": "Mining Output",
+        "OptionEnumName": "MiningOutput",
+        "OptionType": "Float",
+        "OverrideOptionName": null,
+        "ValueSetName": "LootAbundanceValues",
+        "DefaultValue": 1,
+        "IsPercent": false,
+        "NewUISection": true,
+        "DisabledOptions": null
+      },
+      {
+        "OptionName": "Crop Output",
+        "OptionEnumName": "CropOutput",
+        "OptionType": "Float",
+        "OverrideOptionName": null,
+        "ValueSetName": "LootAbundanceValues",
+        "DefaultValue": 1,
+        "IsPercent": false,
+        "NewUISection": false,
+        "DisabledOptions": null
+      },
+      {
+        "OptionName": "Seed Drop Output",
+        "OptionEnumName": "SeedDropOutput",
+        "OptionType": "Float",
+        "OverrideOptionName": null,
+        "ValueSetName": "LootAbundanceValues",
+        "DefaultValue": 1,
+        "IsPercent": false,
+        "NewUISection": false,
+        "DisabledOptions": null
+      },
+      {
+        "OptionName": "Harvesting Output",
+        "OptionEnumName": "HarvestingOutput",
+        "OptionType": "Float",
+        "OverrideOptionName": null,
+        "ValueSetName": "LootAbundanceValues",
+        "DefaultValue": 1,
+        "IsPercent": false,
+        "NewUISection": false,
+        "DisabledOptions": null
+      },
+      {
+        "OptionName": "Crop Growth",
+        "OptionEnumName": "CropGrowthSpeed",
+        "OptionType": "Float",
+        "OverrideOptionName": null,
+        "ValueSetName": "CropGrowthSpeed",
+        "DefaultValue": 1,
+        "IsPercent": false,
+        "NewUISection": false,
+        "DisabledOptions": null
+      }
+    ]
+  },
+  {
+    "CategoryName": "Crafting",
+    "DisplayName": "Crafting",
+    "Options": [
+      {
+        "OptionName": "Crafting Progression",
+        "OptionEnumName": "CraftingProgression",
+        "OptionType": "Bool",
+        "OverrideOptionName": null,
+        "ValueSetName": "YesNo",
+        "DefaultValue": null,
+        "IsPercent": false,
+        "NewUISection": false,
+        "DisabledOptions": null
+      },
+      {
+        "OptionName": "Crafting Max Tier",
+        "OptionEnumName": "CraftingMaxTier",
+        "OptionType": "Int",
+        "OverrideOptionName": null,
+        "ValueSetName": "ItemTierOptions",
+        "DefaultValue": 6,
+        "IsPercent": false,
+        "NewUISection": false,
+        "DisabledOptions": null
+      },
+      {
+        "OptionName": "Magazine Points",
+        "OptionEnumName": "PointsPerMagazine",
+        "OptionType": "Int",
+        "OverrideOptionName": null,
+        "ValueSetName": "PointsPer",
+        "DefaultValue": 1,
+        "IsPercent": false,
+        "NewUISection": false,
+        "DisabledOptions": null
+      },
+      {
+        "OptionName": "Backpack Crafting",
+        "OptionEnumName": "BackpackCrafting",
+        "OptionType": "Int",
+        "OverrideOptionName": null,
+        "ValueSetName": "BackpackCrafting",
+        "DefaultValue": 1,
+        "IsPercent": false,
+        "NewUISection": false,
+        "DisabledOptions": null
+      },
+      {
+        "OptionName": "Workstation Crafting",
+        "OptionEnumName": "WorkstationCrafting",
+        "OptionType": "Bool",
+        "OverrideOptionName": null,
+        "ValueSetName": "YesNo",
+        "DefaultValue": null,
+        "IsPercent": false,
+        "NewUISection": false,
+        "DisabledOptions": null
+      },
+      {
+        "OptionName": "Smelter Type",
+        "OptionEnumName": "SmeltingType",
+        "OptionType": "Bool",
+        "OverrideOptionName": null,
+        "ValueSetName": "SmeltingType",
+        "DefaultValue": null,
+        "IsPercent": false,
+        "NewUISection": false,
+        "DisabledOptions": null
+      },
+      {
+        "OptionName": "Crafting Time",
+        "OptionEnumName": "CraftingTime",
+        "OptionType": "Float",
+        "OverrideOptionName": null,
+        "ValueSetName": "SpeedValues",
+        "DefaultValue": 1,
+        "IsPercent": false,
+        "NewUISection": false,
+        "DisabledOptions": null
+      },
+      {
+        "OptionName": "Crafting Input",
+        "OptionEnumName": "CraftingInput",
+        "OptionType": "Float",
+        "OverrideOptionName": null,
+        "ValueSetName": "SpeedValues",
+        "DefaultValue": 1,
+        "IsPercent": false,
+        "NewUISection": false,
+        "DisabledOptions": null
+      },
+      {
+        "OptionName": "Crafting Output",
+        "OptionEnumName": "CraftingOutput",
+        "OptionType": "Float",
+        "OverrideOptionName": null,
+        "ValueSetName": "StaminaRegen",
+        "DefaultValue": 1,
+        "IsPercent": false,
+        "NewUISection": false,
+        "DisabledOptions": null
+      },
+      {
+        "OptionName": "Scrapping Output",
+        "OptionEnumName": "ScrappingOutput",
+        "OptionType": "Float",
+        "OverrideOptionName": null,
+        "ValueSetName": "SpeedValues",
+        "DefaultValue": 1,
+        "IsPercent": false,
+        "NewUISection": false,
+        "DisabledOptions": null
+      },
+      {
+        "OptionName": "Dew Collector Time",
+        "OptionEnumName": "DewCollectorTime",
+        "OptionType": "Float",
+        "OverrideOptionName": null,
+        "ValueSetName": "SpeedValues",
+        "DefaultValue": 1,
+        "IsPercent": false,
+        "NewUISection": true,
+        "DisabledOptions": null
+      },
+      {
+        "OptionName": "Dew Collector Output",
+        "OptionEnumName": "DewCollectorOutput",
+        "OptionType": "Float",
+        "OverrideOptionName": null,
+        "ValueSetName": "CollectorOutput",
+        "DefaultValue": 1,
+        "IsPercent": false,
+        "NewUISection": false,
+        "DisabledOptions": null
+      },
+      {
+        "OptionName": "Dew Collector Input",
+        "OptionEnumName": "DewCollectorInput",
+        "OptionType": "Float",
+        "OverrideOptionName": null,
+        "ValueSetName": "DewCollectorInput",
+        "DefaultValue": 1,
+        "IsPercent": false,
+        "NewUISection": false,
+        "DisabledOptions": null
+      },
+      {
+        "OptionName": "Apiary Time",
+        "OptionEnumName": "ApiaryTime",
+        "OptionType": "Float",
+        "OverrideOptionName": null,
+        "ValueSetName": "SpeedValues",
+        "DefaultValue": 1,
+        "IsPercent": false,
+        "NewUISection": false,
+        "DisabledOptions": null
+      },
+      {
+        "OptionName": "Apiary Output",
+        "OptionEnumName": "ApiaryOutput",
+        "OptionType": "Float",
+        "OverrideOptionName": null,
+        "ValueSetName": "CollectorOutput",
+        "DefaultValue": 1,
+        "IsPercent": false,
+        "NewUISection": false,
+        "DisabledOptions": null
+      },
+      {
+        "OptionName": "Apiary Input",
+        "OptionEnumName": "ApiaryInput",
+        "OptionType": "Float",
+        "OverrideOptionName": null,
+        "ValueSetName": "ApiaryInput",
+        "DefaultValue": 1,
+        "IsPercent": false,
+        "NewUISection": false,
+        "DisabledOptions": null
+      },
+      {
+        "OptionName": "Item Degradation",
+        "OptionEnumName": "ItemDegradation",
+        "OptionType": "Float",
+        "OverrideOptionName": null,
+        "ValueSetName": "DisabledLowDefaultHigh",
+        "DefaultValue": 1,
+        "IsPercent": false,
+        "NewUISection": true,
+        "DisabledOptions": null
+      },
+      {
+        "OptionName": "Item Repair Types",
+        "OptionEnumName": "RepairTypes",
+        "OptionType": "Int",
+        "OverrideOptionName": null,
+        "ValueSetName": "RepairTypes",
+        "DefaultValue": 3,
+        "IsPercent": false,
+        "NewUISection": false,
+        "DisabledOptions": null
+      },
+      {
+        "OptionName": "Max Degrade Amount",
+        "OptionEnumName": "MaxDegradationAmount",
+        "OptionType": "Float",
+        "OverrideOptionName": null,
+        "ValueSetName": "MaxDegradationAmounts",
+        "DefaultValue": 0,
+        "IsPercent": false,
+        "NewUISection": false,
+        "DisabledOptions": null
+      }
+    ]
+  },
+  {
+    "CategoryName": "Traders",
+    "DisplayName": "Traders",
+    "Options": [
+      {
+        "OptionName": "Trading Enabled",
+        "OptionEnumName": "TradersEnabled",
+        "OptionType": "Bool",
+        "OverrideOptionName": null,
+        "ValueSetName": "YesNo",
+        "DefaultValue": null,
+        "IsPercent": false,
+        "NewUISection": false,
+        "DisabledOptions": null
+      },
+      {
+        "OptionName": "Vending Machines Enabled",
+        "OptionEnumName": "VendingEnabled",
+        "OptionType": "Bool",
+        "OverrideOptionName": null,
+        "ValueSetName": "YesNo",
+        "DefaultValue": null,
+        "IsPercent": false,
+        "NewUISection": false,
+        "DisabledOptions": null
+      },
+      {
+        "OptionName": "Trader Hours",
+        "OptionEnumName": "TraderHours",
+        "OptionType": "Int",
+        "OverrideOptionName": null,
+        "ValueSetName": "TraderHourPresets",
+        "DefaultValue": 0,
+        "IsPercent": false,
+        "NewUISection": false,
+        "DisabledOptions": null
+      },
+      {
+        "OptionName": "Trader Protection",
+        "OptionEnumName": "TraderProtection",
+        "OptionType": "Int",
+        "OverrideOptionName": null,
+        "ValueSetName": "TraderArea",
+        "DefaultValue": 0,
+        "IsPercent": false,
+        "NewUISection": false,
+        "DisabledOptions": null
+      },
+      {
+        "OptionName": "Trading Dialog",
+        "OptionEnumName": "TraderDialog",
+        "OptionType": "Bool",
+        "OverrideOptionName": null,
+        "ValueSetName": "YesNo",
+        "DefaultValue": null,
+        "IsPercent": false,
+        "NewUISection": false,
+        "DisabledOptions": null
+      },
+      {
+        "OptionName": "Global TraderStage",
+        "OptionEnumName": "GlobalTSModifier",
+        "OptionType": "Float",
+        "OverrideOptionName": null,
+        "ValueSetName": "LowDefaultHigh",
+        "DefaultValue": 1,
+        "IsPercent": false,
+        "NewUISection": true,
+        "DisabledOptions": null
+      },
+      {
+        "OptionName": "Trader Max Tier",
+        "OptionEnumName": "TraderMaxTier",
+        "OptionType": "Int",
+        "OverrideOptionName": null,
+        "ValueSetName": "ItemTierOptions",
+        "DefaultValue": 6,
+        "IsPercent": false,
+        "NewUISection": false,
+        "DisabledOptions": null
+      },
+      {
+        "OptionName": "Trader Item Abundance",
+        "OptionEnumName": "TraderItemAbundance",
+        "OptionType": "Float",
+        "OverrideOptionName": null,
+        "ValueSetName": "LowDefaultHigh",
+        "DefaultValue": 1,
+        "IsPercent": false,
+        "NewUISection": false,
+        "DisabledOptions": null
+      },
+      {
+        "OptionName": "Vending Item Abundance",
+        "OptionEnumName": "VendingItemAbundance",
+        "OptionType": "Float",
+        "OverrideOptionName": null,
+        "ValueSetName": "LowDefaultHigh",
+        "DefaultValue": 1,
+        "IsPercent": false,
+        "NewUISection": false,
+        "DisabledOptions": null
+      },
+      {
+        "OptionName": "Trader Reset Interval",
+        "OptionEnumName": "TraderResetInterval",
+        "OptionType": "Int",
+        "OverrideOptionName": null,
+        "ValueSetName": "TraderResetInterval",
+        "DefaultValue": -1,
+        "IsPercent": false,
+        "NewUISection": false,
+        "DisabledOptions": null
+      },
+      {
+        "OptionName": "Vending Reset Interval",
+        "OptionEnumName": "VendingResetInterval",
+        "OptionType": "Int",
+        "OverrideOptionName": null,
+        "ValueSetName": "TraderResetInterval",
+        "DefaultValue": -1,
+        "IsPercent": false,
+        "NewUISection": false,
+        "DisabledOptions": null
+      },
+      {
+        "OptionName": "Traders Sell Price",
+        "OptionEnumName": "TraderSellPrices",
+        "OptionType": "Float",
+        "OverrideOptionName": null,
+        "ValueSetName": "BarterValues",
+        "DefaultValue": 1,
+        "IsPercent": false,
+        "NewUISection": false,
+        "DisabledOptions": null
+      },
+      {
+        "OptionName": "Traders Buy Price",
+        "OptionEnumName": "TraderBuyPrices",
+        "OptionType": "Float",
+        "OverrideOptionName": null,
+        "ValueSetName": "BarterValues",
+        "DefaultValue": 1,
+        "IsPercent": false,
+        "NewUISection": false,
+        "DisabledOptions": null
+      },
+      {
+        "OptionName": "Trader Buy Limit",
+        "OptionEnumName": "TraderBuyLimit",
+        "OptionType": "Int",
+        "OverrideOptionName": null,
+        "ValueSetName": "StarterSkillPoints",
+        "DefaultValue": 3,
+        "IsPercent": false,
+        "NewUISection": false,
+        "DisabledOptions": null
+      }
+    ]
+  },
+  {
+    "CategoryName": "Tasks",
+    "DisplayName": "Tasks",
+    "Options": [
+      {
+        "OptionName": "Challenges Enabled",
+        "OptionEnumName": "ChallengesEnabled",
+        "OptionType": "Bool",
+        "OverrideOptionName": null,
+        "ValueSetName": "YesNo",
+        "DefaultValue": null,
+        "IsPercent": false,
+        "NewUISection": false,
+        "DisabledOptions": null
+      },
+      {
+        "OptionName": "Quests Enabled",
+        "OptionEnumName": "QuestsEnabled",
+        "OptionType": "Bool",
+        "OverrideOptionName": null,
+        "ValueSetName": "YesNo",
+        "DefaultValue": null,
+        "IsPercent": false,
+        "NewUISection": false,
+        "DisabledOptions": null
+      },
+      {
+        "OptionName": "Intro Challenges Enabled",
+        "OptionEnumName": "IntroChallengesEnabled",
+        "OptionType": "Bool",
+        "OverrideOptionName": null,
+        "ValueSetName": "YesNo",
+        "DefaultValue": null,
+        "IsPercent": false,
+        "NewUISection": false,
+        "DisabledOptions": null
+      },
+      {
+        "OptionName": "Intro Quest Enabled",
+        "OptionEnumName": "IntroQuestEnabled",
+        "OptionType": "Bool",
+        "OverrideOptionName": null,
+        "ValueSetName": "YesNo",
+        "DefaultValue": null,
+        "IsPercent": false,
+        "NewUISection": false,
+        "DisabledOptions": null
+      },
+      {
+        "OptionName": "Trader to Trader Quests",
+        "OptionEnumName": "TraderToTraderQuestsEnabled",
+        "OptionType": "Bool",
+        "OverrideOptionName": null,
+        "ValueSetName": "YesNo",
+        "DefaultValue": null,
+        "IsPercent": false,
+        "NewUISection": false,
+        "DisabledOptions": null
+      },
+      {
+        "OptionName": "Buried Quests Enabled",
+        "OptionEnumName": "BuriedQuestsEnabled",
+        "OptionType": "Bool",
+        "OverrideOptionName": null,
+        "ValueSetName": "YesNo",
+        "DefaultValue": null,
+        "IsPercent": false,
+        "NewUISection": false,
+        "DisabledOptions": null
+      },
+      {
+        "OptionName": "POI Quests Enabled",
+        "OptionEnumName": "POIQuestsEnabled",
+        "OptionType": "Bool",
+        "OverrideOptionName": null,
+        "ValueSetName": "YesNo",
+        "DefaultValue": null,
+        "IsPercent": false,
+        "NewUISection": false,
+        "DisabledOptions": null
+      },
+      {
+        "OptionName": "Quests per Tier",
+        "OptionEnumName": "QuestsPerTier",
+        "OptionType": "Int",
+        "OverrideOptionName": null,
+        "ValueSetName": "QuestPerTier",
+        "DefaultValue": 10,
+        "IsPercent": false,
+        "NewUISection": false,
+        "DisabledOptions": null
+      },
+      {
+        "OptionName": "Quests per Day",
+        "OptionEnumName": "QuestProgressionDailyLimit",
+        "OptionType": "Int",
+        "OverrideOptionName": null,
+        "ValueSetName": "QuestPerDay",
+        "DefaultValue": 4,
+        "IsPercent": false,
+        "NewUISection": false,
+        "DisabledOptions": null
+      },
+      {
+        "OptionName": "Starter Skill Points",
+        "OptionEnumName": "StarterSkillPoints",
+        "OptionType": "Int",
+        "OverrideOptionName": null,
+        "ValueSetName": "StarterSkillPoints",
+        "DefaultValue": 4,
+        "IsPercent": false,
+        "NewUISection": false,
+        "DisabledOptions": null
+      }
+    ]
+  },
+  {
+    "CategoryName": "Misc",
+    "DisplayName": "Misc",
+    "Options": [
+      {
+        "OptionName": "Vehicle Fuel Usage",
+        "OptionEnumName": "VehicleFuelUsage",
+        "OptionType": "Float",
+        "OverrideOptionName": null,
+        "ValueSetName": "DamageValues",
+        "DefaultValue": 1,
+        "IsPercent": false,
+        "NewUISection": false,
+        "DisabledOptions": null
+      },
+      {
+        "OptionName": "Vehicle Entity Damage",
+        "OptionEnumName": "VehicleEntityDamage",
+        "OptionType": "Float",
+        "OverrideOptionName": null,
+        "ValueSetName": "DamageValues",
+        "DefaultValue": 1,
+        "IsPercent": false,
+        "NewUISection": false,
+        "DisabledOptions": null
+      },
+      {
+        "OptionName": "Vehicle Block Damage",
+        "OptionEnumName": "VehicleBlockDamage",
+        "OptionType": "Float",
+        "OverrideOptionName": null,
+        "ValueSetName": "DamageValues",
+        "DefaultValue": 1,
+        "IsPercent": false,
+        "NewUISection": false,
+        "DisabledOptions": null
+      },
+      {
+        "OptionName": "Vehicle Self Damage",
+        "OptionEnumName": "VehicleSelfDamage",
+        "OptionType": "Float",
+        "OverrideOptionName": null,
+        "ValueSetName": "DamageValues",
+        "DefaultValue": 1,
+        "IsPercent": false,
+        "NewUISection": false,
+        "DisabledOptions": null
+      },
+      {
+        "OptionName": "Electrical Output",
+        "OptionEnumName": "ElectricalOutput",
+        "OptionType": "Float",
+        "OverrideOptionName": null,
+        "ValueSetName": "StaminaRegen",
+        "DefaultValue": 1,
+        "IsPercent": false,
+        "NewUISection": true,
+        "DisabledOptions": null
+      },
+      {
+        "OptionName": "Celebrate Kills",
+        "OptionEnumName": "SillyCelebrate",
+        "OptionType": "Int",
+        "OverrideOptionName": null,
+        "ValueSetName": "Celebrate",
+        "DefaultValue": 0,
+        "IsPercent": false,
+        "NewUISection": true,
+        "DisabledOptions": null
+      },
+      {
+        "OptionName": "Big Heads",
+        "OptionEnumName": "SillyBigHeads",
+        "OptionType": "Bool",
+        "OverrideOptionName": null,
+        "ValueSetName": "YesNo",
+        "DefaultValue": null,
+        "IsPercent": false,
+        "NewUISection": false,
+        "DisabledOptions": null
+      },
+      {
+        "OptionName": "Tiny Zombies",
+        "OptionEnumName": "SillyTinyZombies",
+        "OptionType": "Bool",
+        "OverrideOptionName": null,
+        "ValueSetName": "YesNo",
+        "DefaultValue": null,
+        "IsPercent": false,
+        "NewUISection": false,
+        "DisabledOptions": null
+      },
+      {
+        "OptionName": "Gravity",
+        "OptionEnumName": "SillyLowGravity",
+        "OptionType": "Float",
+        "OverrideOptionName": null,
+        "ValueSetName": "Gravity",
+        "DefaultValue": 1,
+        "IsPercent": false,
+        "NewUISection": false,
+        "DisabledOptions": null
+      },
+      {
+        "OptionName": "Silly Sounds",
+        "OptionEnumName": "SillySounds",
+        "OptionType": "Bool",
+        "OverrideOptionName": null,
+        "ValueSetName": "YesNo",
+        "DefaultValue": null,
+        "IsPercent": false,
+        "NewUISection": false,
+        "DisabledOptions": null
+      },
+      {
+        "OptionName": "Black and White",
+        "OptionEnumName": "SillyBlackandWhite",
+        "OptionType": "Bool",
+        "OverrideOptionName": null,
+        "ValueSetName": "YesNo",
+        "DefaultValue": null,
+        "IsPercent": false,
+        "NewUISection": false,
+        "DisabledOptions": null
+      }
+    ]
+  }
+];
+        const enumMap = {
+  "RangedLootCount": 86,
+  "IntroQuestEnabled": 119,
+  "BiomeGSModifier": 61,
+  "ResourceLootCount": 83,
+  "StaminaUsage": 9,
+  "BuriedQuestsEnabled": 124,
+  "DayLightLength": 67,
+  "ZombieFeralMove": 36,
+  "HeadshotMode": 16,
+  "StaminaRegen": 10,
+  "ShowXP": 19,
+  "DegradeAmountOnDeath": 25,
+  "UNUSED2": 112,
+  "WalkSpeed": 6,
+  "VendingEnabled": 129,
+  "CropOutput": 91,
+  "TraderResetInterval": 133,
+  "QuestProgressionDailyLimit": 123,
+  "ElectricalOutput": 145,
+  "VehicleEntityDamage": 142,
+  "GlobalLSModifier": 62,
+  "ScrappingOutput": 103,
+  "POIQuestsEnabled": 125,
+  "VendingResetInterval": 137,
+  "EnemySpawnMode": 30,
+  "IncomingDamage": 17,
+  "StormWarning": 58,
+  "ZombieMoveNight": 35,
+  "AirDropMarker": 53,
+  "POITierLSModifier": 64,
+  "LoseItemsOnDeathType": 22,
+  "DropOnQuit": 28,
+  "CrouchSpeed": 5,
+  "SillyBigHeads": 147,
+  "AirDropRandomTime": 54,
+  "JarRefund": 12,
+  "AirDropFrequency": 52,
+  "AISmellMode": 39,
+  "AmmoLootCount": 82,
+  "XPMultiplier": 18,
+  "SillySounds": 149,
+  "GlobalGSModifier": 60,
+  "DewCollectorInput": 107,
+  "HeadshotMultiplier": 4,
+  "ChallengesEnabled": 139,
+  "BiomeProgression": 55,
+  "DrinkLootCount": 80,
+  "TraderHours": 127,
+  "ZombieMove": 34,
+  "SillyBlackandWhite": 151,
+  "DewCollectorTime": 105,
+  "BlockDamage": 2,
+  "TraderBuyLimit": 135,
+  "ZombieRageChance": 41,
+  "RunSpeed": 7,
+  "GlobalLootCount": 78,
+  "MaxTechType": 74,
+  "HarvestingOutput": 102,
+  "RepairTypes": 113,
+  "CraftingInput": 98,
+  "DropOnDeath": 27,
+  "SillyCelebrate": 146,
+  "BiomeZombieRespawn": 44,
+  "RangedDamage": 0,
+  "CraftingMagazinesLootCount": 88,
+  "MeleeLootCount": 85,
+  "CraftingMaxTier": 100,
+  "CraftingTime": 97,
+  "ZombiesEatAnimals": 47,
+  "ShowDayTime": 72,
+  "DukesLootCount": 87,
+  "BloodMoonWarning": 50,
+  "TraderMaxTier": 136,
+  "TraderBuyPrices": 131,
+  "TerrainDamage": 3,
+  "ApiaryOutput": 109,
+  "LootTimer": 76,
+  "WorkstationsInTheWild": 73,
+  "ApiaryInput": 110,
+  "EntityDamage": 31,
+  "SkillGainRate": 116,
+  "BiomeEnemyDensity": 46,
+  "SkillPointsPerLevel": 117,
+  "DayNightLength": 66,
+  "VehicleBlockDamage": 143,
+  "QuestsEnabled": 118,
+  "SillyTinyZombies": 148,
+  "BackpackCrafting": 94,
+  "StormFreq": 57,
+  "ItemDegradation": 21,
+  "ShowHealthBars": 13,
+  "TemperatureSurvival": 56,
+  "CraftingProgression": 96,
+  "DewCollectorOutput": 106,
+  "AllowCompass": 69,
+  "SillyLowGravity": 150,
+  "TraderItemAbundance": 134,
+  "BiomeAnimalRespawn": 45,
+  "IntroChallengesEnabled": 140,
+  "JumpStrength": 8,
+  "QuestsPerTier": 122,
+  "InfectionRate": 29,
+  "SeedDropOutput": 92,
+  "TraderSellPrices": 130,
+  "MedicalLootCount": 81,
+  "LootMaxTier": 77,
+  "ZombieFeralSense": 38,
+  "MeleeDamage": 1,
+  "PlayerLevelBonusApplied": 11,
+  "UNUSED1": 111,
+  "HeatMapSensitivity": 59,
+  "WorkstationCrafting": 95,
+  "VendingItemAbundance": 138,
+  "AllowZombieDigging": 40,
+  "MaxDegradationAmount": 114,
+  "CropGrowthSpeed": 93,
+  "ShowEnemyDamage": 14,
+  "ZombieBMMove": 37,
+  "Max": 152,
+  "VehicleSelfDamage": 144,
+  "DeathPenalty": 26,
+  "ArmorLootCount": 84,
+  "TraderDialog": 126,
+  "TraderToTraderQuestsEnabled": 120,
+  "BlockDamageAIBM": 33,
+  "TradersEnabled": 128,
+  "SmeltingType": 104,
+  "MiningOutput": 101,
+  "ShowLocationInfo": 71,
+  "MaxEnemyTier": 43,
+  "FoodLootCount": 79,
+  "BloodMoonFrequency": 48,
+  "BloodMoonEnemyCount": 51,
+  "PointsPerMagazine": 115,
+  "EncumbranceModifier": 20,
+  "CraftingOutput": 99,
+  "EntityIncomingDamage": 42,
+  "AllowScreenMarkers": 70,
+  "BiomeLSModifier": 63,
+  "DegradeItemsOnDeath": 24,
+  "LoseItemsOnDeathCount": 23,
+  "StarterSkillPoints": 121,
+  "AllowMap": 68,
+  "TraderProtection": 132,
+  "BloodMoonRange": 49,
+  "LootRespawnDays": 75,
+  "LootBagChance": 90,
+  "VehicleFuelUsage": 141,
+  "GlobalTSModifier": 65,
+  "BlockDamageAI": 32,
+  "ApiaryTime": 108,
+  "TreasureMapChance": 89,
+  "NewbieCoat": 15
+};
+        const rawPresets = [
+  {
+    "name": "Scavenger",
+    "category": "Difficulty",
+    "difficulty": "2",
+    "code": "AAAKABKACKADKARDBNB",
+    "default": false,
+    "always_show": "",
+    "localized_name": "goDifficulty1",
+    "icon": "Data/Sandbox/icons/diff_scavenger"
+  },
+  {
+    "name": "Adventurer",
+    "category": "Difficulty",
+    "difficulty": "3",
+    "code": "AAAJABJACJADJARFBNC",
+    "default": true,
+    "always_show": "",
+    "localized_name": "goDifficulty2",
+    "icon": "Data/Sandbox/icons/diff_adventurer"
+  },
+  {
+    "name": "Nomad",
+    "category": "Difficulty",
+    "difficulty": "4",
+    "code": "",
+    "default": false,
+    "always_show": "RangedDamage,MeleeDamage,BlockDamage,TerrainDamage,IncomingDamage,AISmellMode",
+    "localized_name": "goDifficulty3",
+    "icon": "Data/Sandbox/icons/diff_nomad"
+  },
+  {
+    "name": "Warrior",
+    "category": "Difficulty",
+    "difficulty": "5",
+    "code": "AAAGABGACGADGARJBND",
+    "default": false,
+    "always_show": "AISmellMode",
+    "localized_name": "goDifficulty4",
+    "icon": "Data/Sandbox/icons/diff_warrior"
+  },
+  {
+    "name": "True Survivalist",
+    "category": "Difficulty",
+    "difficulty": "6",
+    "code": "AAAEABEACEADEARKBNE",
+    "default": false,
+    "always_show": "AISmellMode",
+    "localized_name": "goDifficulty5",
+    "icon": "Data/Sandbox/icons/diff_survivalist"
+  },
+  {
+    "name": "Insane",
+    "category": "Difficulty",
+    "difficulty": "7",
+    "code": "AAADABDACDADDARLBNF",
+    "default": false,
+    "always_show": "AISmellMode",
+    "localized_name": "goDifficulty6",
+    "icon": "Data/Sandbox/icons/diff_insane"
+  },
+  {
+    "name": "Almost Creative",
+    "category": "Official",
+    "difficulty": "1",
+    "code": "ABEABTBBWADFN",
+    "default": false,
+    "always_show": "",
+    "localized_name": "xuiSandboxOfficialAlmostCreative",
+    "icon": "Data/Sandbox/icons/official_almostcreative"
+  },
+  {
+    "name": "Chibi Mode",
+    "category": "Official",
+    "difficulty": "3",
+    "code": "AAAJABJACJADJAEIARFAGIAHJAFJAIEAKEAJDASGENDBAAAYBAZBBBABDCAUBAMJBUEBSEBTEAQBBIBBKEBLEBMBBNCCVHBZDCACCLDCMDCXBCYCDMJDAIDXIDNIDOIDYIDPGDTGEBGEEGAVCEXFCNDETFFLGFMJFOGFQCFRBFSBFUB",
+    "default": false,
+    "always_show": "",
+    "localized_name": "xuiSandboxOfficialAlmostChibiMode",
+    "icon": "Data/Sandbox/icons/official_chibimode"
+  },
+  {
+    "name": "Dumpster Diver",
+    "category": "Official",
+    "difficulty": "4",
+    "code": "AAUABUCCVLCABCXBDMKDALDFJDKDDXADNADOADYBEABDVGDZFEXFFKA",
+    "default": false,
+    "always_show": "",
+    "localized_name": "xuiSandboxOfficialDumpsterDiver",
+    "icon": "Data/Sandbox/icons/official_dumpsterdiver"
+  },
+  {
+    "name": "Legacy Survival",
+    "category": "Official",
+    "difficulty": "4",
+    "code": "AAHIAJDBACAPAAUAAMLBREBUEBSCBNCBPABOABVACDACVGCGACBACXBDDGDJIDNJDOJDSAELAEABEBGCNDFEDFIDFAFEOAFKAEPAEQA",
+    "default": false,
+    "always_show": "",
+    "localized_name": "xuiSandboxOfficialLegacySurvival",
+    "icon": "Data/Sandbox/icons/official_legacysurvival"
+  },
+  {
+    "name": "Disaster Film",
+    "category": "Official",
+    "difficulty": "5",
+    "code": "AAXBAYDAZFBDFBVACFHDAKDDJDKFAVFEKFFOJ",
+    "default": false,
+    "always_show": "",
+    "localized_name": "xuiSandboxOfficialDisasterFilm",
+    "icon": "Data/Sandbox/icons/official_disasterfilm"
+  },
+  {
+    "name": "Caveman Life",
+    "category": "Official",
+    "difficulty": "6",
+    "code": "AAADABJBTFCDACWBCAACQACRADNADOADWAEZAEWAFGAFKAFPA",
+    "default": false,
+    "always_show": "",
+    "localized_name": "xuiSandboxOfficialCavemanLife",
+    "icon": "Data/Sandbox/icons/official_cavemanlife"
+  },
+  {
+    "name": "Dying World",
+    "category": "Official",
+    "difficulty": "6",
+    "code": "AAMABTBCAACXADMADOAEBAEJAFEAFIAFDIFHIFJAEOAEPA",
+    "default": false,
+    "always_show": "",
+    "localized_name": "xuiSandboxOfficialDyingWorld",
+    "icon": "Data/Sandbox/icons/official_dyingworld"
+  },
+  {
+    "name": "Undead Matinee",
+    "category": "Official",
+    "difficulty": "6",
+    "code": "AAAFABIACGADGAEIARJAGHAHEAFIAKEAJCBACAWBAXBAYDAZDBDGAPAAMFBUEBSEBFKBQEAQCBJABKABLBBMBBNCBPJCIDCJDCVEBZFCAGCFECYDDBDDCDDDDDEBDGDDHJDIBDKFAVEEKDFDFFHF",
+    "default": false,
+    "always_show": "",
+    "localized_name": "xuiSandboxOfficialUndeadMatinee",
+    "icon": "Data/Sandbox/icons/official_undeadmatinee"
+  },
+  {
+    "name": "Seven days Later",
+    "category": "Official",
+    "difficulty": "7",
+    "code": "AAAGABGACGADGARJBACAWFAXBAYDAPABUEBSEBICBJCBKCBLCBMCBPFBZFBYC",
+    "default": false,
+    "always_show": "",
+    "localized_name": "xuiSandboxOfficialSevendaysLater",
+    "icon": "Data/Sandbox/icons/official_sevendayslater"
+  },
+  {
+    "name": "Madmoles Mayhem",
+    "category": "Official",
+    "difficulty": "8",
+    "code": "AAAGABGACGAPAAMIAWBAXCAZEBACBFIBGIBHIBIBBKEBLEBNFBUEBSECIDCJDBZFCVDDCDDDDDEDDFDDGDDJFEXF",
+    "default": false,
+    "always_show": "",
+    "localized_name": "xuiSandboxOfficialMadmolesMayhem",
+    "icon": "Data/Sandbox/icons/official_madmolesmayhem"
+  },
+  {
+    "name": "Bite Club",
+    "category": "Official",
+    "difficulty": "9",
+    "code": "AAAGABGACGADGARJAHJBADBDGBIBBMCBNEBPFBZFCFDCXADADEYA",
+    "default": false,
+    "always_show": "",
+    "localized_name": "xuiSandboxOfficialBiteClub",
+    "icon": "Data/Sandbox/icons/official_biteclub"
+  }
+];
+
+        // Custom descriptions dictionary
+        const descriptions = {
+            "sandboxPresetDescScavenger": "Beginner: A cakewalk in the apocalypse, training wheels included.",
+            "sandboxPresetDescAdventurer": "Casual: A balanced starting point for new survivors.",
+            "sandboxPresetDescNomad": "Standard: The default 7 Days to Die experience.",
+            "sandboxPresetDescWarrior": "Challenging: Punishing combat and smarter, tougher zombies.",
+            "sandboxPresetDescSurvivalist": "Hardcore: Resource scarcity and highly lethal zombie hordes.",
+            "sandboxPresetDescInsane": "Extreme: Minimal survival margins. Every fight is dangerous.",
+            "xuiSandboxOfficialAlmostCreativeDesc": "Creative: Near sandbox mode with maximum player damage and minimal threats.",
+            "xuiSandboxOfficialAlmostChibiModeDesc": "Experimental: Every zombie has exaggerated scaling and physics.",
+            "xuiSandboxOfficialDumpsterDiverDesc": "Themed: Scavenge for survival. Loot is abundant but combat is fierce.",
+            "xuiSandboxOfficialLegacySurvivalDesc": "Retro: Re-creates the classic balancing and mechanics of Alpha 16.",
+            "xuiSandboxOfficialDisasterFilmDesc": "Cinematic: High-apocalypse experience with constant storms and high zombie counts.",
+            "xuiSandboxOfficialCavemanLifeDesc": "Themed: Technology is disabled. Survive using only primitive tools.",
+            "xuiSandboxOfficialDyingWorldDesc": "Themed: Punishing environment with extreme temperatures and decaying resources.",
+            "xuiSandboxOfficialUndeadMatineeDesc": "Cinematic: Movie-like horror with slow, massive zombie hordes.",
+            "xuiSandboxOfficialSevendaysLaterDesc": "Fast-paced: Ultra speed progression with brutal 7th day Blood Moons.",
+            "xuiSandboxOfficialMadmolesMayhemDesc": "Developer: Lead developer Madmole's personal favorite hardcore sandbox setup.",
+            "xuiSandboxOfficialBiteClubDesc": "Nightmare: Maximum feral zombies, instant rage, and no screen navigation."
+        };
+
+        // Local storage key for custom user presets
+        const LOCAL_STORAGE_KEY = "7d2d_custom_presets";
+
+        // State holder
+        let currentValues = {};
+        let presets = [...rawPresets];
+        let currentCategory = "Difficulty";
+        let activePresetIndex = 0;
+        let activeTab = "Player";
+        let activeSubTab = null;
+
+        // Flatten options list for indexing
+        const allOptions = [];
+        const optionByEnumName = {};
+        const optionByEnumId = {};
+
+        categories.forEach(cat => {
+            cat.Options.forEach(opt => {
+                allOptions.push(opt);
+                optionByEnumName[opt.OptionEnumName] = opt;
+                const enumId = enumMap[opt.OptionEnumName];
+                if (enumId !== undefined) {
+                    optionByEnumId[enumId] = opt;
+                }
+            });
+        });
+
+        // Load custom presets from local storage
+        function loadCustomPresets() {
+            const stored = localStorage.getItem(LOCAL_STORAGE_KEY);
+            if (stored) {
+                try {
+                    const custom = JSON.parse(stored);
+                    presets = [...rawPresets, ...custom];
+                } catch (e) {}
+            }
+        }
+
+        // Save custom presets to local storage
+        function saveCustomPresets(customPresets) {
+            localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(customPresets));
+        }
+
+        // Helper Base-26 encoding/decoding
+        function encodeEnumId(id) {
+            const char1 = String.fromCharCode(65 + Math.floor(id / 26));
+            const char2 = String.fromCharCode(65 + (id % 26));
+            return char1 + char2;
+        }
+
+        function decodeEnumId(code) {
+            const char1 = code.charCodeAt(0) - 65;
+            const char2 = code.charCodeAt(1) - 65;
+            return char1 * 26 + char2;
+        }
+
+        // Update active preset selector state
+        function cyclePresetCategory(direction) {
+            const cats = getAvailablePresetCategories();
+            let idx = cats.indexOf(currentCategory);
+            idx = (idx + direction + cats.length) % cats.length;
+            currentCategory = cats[idx];
+            
+            // Set preset to the first one in the new category
+            const filtered = getPresetsByCategory(currentCategory);
+            activePresetIndex = presets.indexOf(filtered[0]);
+            
+            // Apply the preset code
+            applyPreset(presets[activePresetIndex]);
+        }
+
+        function cyclePresetName(direction) {
+            const filtered = getPresetsByCategory(currentCategory);
+            const activePreset = presets[activePresetIndex];
+            let idx = filtered.indexOf(activePreset);
+            idx = (idx + direction + filtered.length) % filtered.length;
+            activePresetIndex = presets.indexOf(filtered[idx]);
+            
+            applyPreset(presets[activePresetIndex]);
+        }
+
+        function getAvailablePresetCategories() {
+            const cats = new Set();
+            presets.forEach(p => cats.add(p.category));
+            return Array.from(cats);
+        }
+
+        function getPresetsByCategory(catName) {
+            return presets.filter(p => p.category === catName);
+        }
+
+        function applyPreset(p) {
+            loadFromCode(p.code || "A");
+            updateUI();
+        }
+
+        // Reset to defaults
+        function resetToDefaults() {
+            allOptions.forEach(opt => {
+                currentValues[opt.OptionEnumName] = opt.DefaultValue;
+            });
+            updateUI();
+            updateCode();
+            showToast("Settings reset to defaults");
+        }
+
+        // Set state from code
+        function loadFromCode(code) {
+            code = code.trim();
+            
+            // Reset to defaults first
+            allOptions.forEach(opt => {
+                currentValues[opt.OptionEnumName] = opt.DefaultValue;
+            });
+
+            if (code && code.startsWith("A")) {
+                for (let i = 1; i < code.length; i += 3) {
+                    if (i + 3 > code.length) break;
+                    const block = code.substring(i, i + 3);
+                    const enumIdCode = block.substring(0, 2);
+                    const valCharCode = block.substring(2, 3);
+                    
+                    const enumId = decodeEnumId(enumIdCode);
+                    const valIdx = valCharCode.charCodeAt(0) - 65;
+                    
+                    const opt = optionByEnumId[enumId];
+                    if (opt) {
+                        const vs = valueSets[opt.ValueSetName];
+                        if (vs && valIdx >= 0 && valIdx < vs.Values.length) {
+                            currentValues[opt.OptionEnumName] = vs.Values[valIdx];
+                        }
+                    }
+                }
+            }
+            updateUI();
+            updateCodeText(code);
+            detectActivePresetByCode(code);
+        }
+
+        function updateCodeText(code) {
+            document.getElementById("sandbox-code-text").textContent = code;
+        }
+
+        // Generate code from state
+        function updateCode() {
+            let code = "A";
+            const activeBlocks = [];
+
+            allOptions.forEach(opt => {
+                const enumName = opt.OptionEnumName;
+                const enumId = enumMap[enumName];
+                if (enumId === undefined) return;
+
+                const val = currentValues[enumName];
+                const def = opt.DefaultValue;
+
+                if (val !== def) {
+                    const vs = valueSets[opt.ValueSetName];
+                    if (!vs) return;
+                    const valIdx = vs.Values.indexOf(val);
+                    if (valIdx === -1) return;
+
+                    const idCode = encodeEnumId(enumId);
+                    const valChar = String.fromCharCode(65 + valIdx);
+                    activeBlocks.push({
+                        id: enumId,
+                        str: idCode + valChar
+                    });
+                }
+            });
+
+            // Sort ascending by Enum ID
+            activeBlocks.sort((a, b) => a.id - b.id);
+            activeBlocks.forEach(b => {
+                code += b.str;
+            });
+
+            updateCodeText(code);
+            detectActivePresetByCode(code);
+        }
+
+        function detectActivePresetByCode(code) {
+            let matched = null;
+            presets.forEach((p, idx) => {
+                const pCode = p.code || "A";
+                if (pCode === code) {
+                    matched = p;
+                    activePresetIndex = idx;
+                }
+            });
+
+            if (matched) {
+                currentCategory = matched.category;
+                document.getElementById("preset-category-val").textContent = matched.category;
+                document.getElementById("preset-name-val").textContent = matched.name;
+                
+                // Show difficulty description or custom preset desc
+                const descText = descriptions[matched.description_key] || matched.desc || "Custom configuration preset.";
+                document.getElementById("preset-desc").textContent = descText;
+
+                // Toggle artwork styling based on category
+                const artBox = document.getElementById("preset-art");
+                const skullBadge = document.getElementById("skull-badge");
+                
+                if (matched.category === "Official") {
+                    artBox.classList.add("official");
+                } else {
+                    artBox.classList.remove("official");
+                }
+
+                if (matched.difficulty) {
+                    skullBadge.style.display = "flex";
+                    skullBadge.innerHTML = `💀 x${matched.difficulty}`;
+                } else {
+                    skullBadge.style.display = "none";
+                }
+            } else {
+                // Custom / Modified preset
+                document.getElementById("preset-name-val").textContent = "* CUSTOM SETTINGS *";
+                document.getElementById("preset-desc").textContent = "The settings have been modified from the preset template. Create a new custom preset to save them.";
+                document.getElementById("skull-badge").style.display = "none";
+            }
+        }
+
+        // Dynamic Tab Renderer
+        function renderTabs() {
+            const mainRow = document.getElementById("main-tabs-row");
+            mainRow.innerHTML = "";
+
+            // Group Categories into Main Tabs and Sub Tabs if they have section nesting
+            // In our JSON, Categories represent main categories: Player, Entities, World, Resources, Traders, Tasks, Misc
+            // But wait, the screenshot has Row 1: Player, Entities, World, Resources, Crafting
+            // Row 2: Traders, Tasks, Misc.
+            // Let's divide them exactly as shown in the screenshot!
+            const mainTabs = ["Player", "Entities", "World", "Resources", "Crafting"];
+            const subTabs = ["Traders", "Tasks", "Misc"];
+
+            mainTabs.forEach(tabName => {
+                const btn = document.createElement("button");
+                btn.className = "game-tab" + (activeTab === tabName ? " active" : "");
+                btn.textContent = tabName;
+                btn.onclick = () => {
+                    activeTab = tabName;
+                    activeSubTab = null;
+                    renderTabs();
+                    renderOptions();
+                };
+                mainRow.appendChild(btn);
+            });
+
+            const subRow = document.getElementById("sub-tabs-row");
+            subRow.innerHTML = "";
+            subRow.style.display = "flex"; // always display row 2
+
+            subTabs.forEach(subName => {
+                const btn = document.createElement("button");
+                btn.className = "game-tab sub-tab" + (activeSubTab === subName ? " active" : "");
+                btn.textContent = subName;
+                btn.onclick = () => {
+                    activeTab = null;
+                    activeSubTab = subName;
+                    renderTabs();
+                    renderOptions();
+                };
+                subRow.appendChild(btn);
+            });
+        }
+
+        // Dynamic Options Renderer (Right Column List)
+        function renderOptions() {
+            const listContainer = document.getElementById("options-columns-list");
+            listContainer.innerHTML = "";
+
+            // Determine active category name in settings complete JSON
+            let targetCatName = activeTab || activeSubTab;
+            
+            // Map the tab name to the CategoryName in JSON
+            // e.g. 'Player' maps to 'Player' or 'Player (General)'
+            const cat = categories.find(c => c.DisplayName.toLowerCase().startsWith(targetCatName.toLowerCase()));
+            if (!cat) return;
+
+            cat.Options.forEach(opt => {
+                const row = document.createElement("div");
+                row.className = "option-item-row";
+                row.id = `row-${opt.OptionEnumName}`;
+
+                const label = document.createElement("span");
+                label.className = "option-label-text";
+                label.textContent = opt.OptionName;
+                row.appendChild(label);
+
+                const stepper = document.createElement("div");
+                stepper.className = "control-stepper";
+                stepper.id = `stepper-${opt.OptionEnumName}`;
+
+                const leftArrow = document.createElement("span");
+                leftArrow.className = "control-arrow";
+                leftArrow.textContent = "◀";
+                leftArrow.onclick = () => cycleOptionValue(opt.OptionEnumName, -1);
+
+                const valText = document.createElement("span");
+                valText.className = "control-value-text";
+                valText.id = `val-${opt.OptionEnumName}`;
+
+                const rightArrow = document.createElement("span");
+                rightArrow.className = "control-arrow";
+                rightArrow.textContent = "▶";
+                rightArrow.onclick = () => cycleOptionValue(opt.OptionEnumName, 1);
+
+                stepper.appendChild(leftArrow);
+                stepper.appendChild(valText);
+                stepper.appendChild(rightArrow);
+                row.appendChild(stepper);
+
+                listContainer.appendChild(row);
+            });
+
+            updateUI();
+        }
+
+        // Stepper Cycling Logic
+        function cycleOptionValue(enumName, direction) {
+            const opt = optionByEnumName[enumName];
+            if (!opt) return;
+
+            const vs = valueSets[opt.ValueSetName];
+            if (!vs || !vs.Values) return;
+
+            const currentVal = currentValues[enumName];
+            let idx = vs.Values.indexOf(currentVal);
+            if (idx === -1) idx = 0;
+
+            idx = (idx + direction + vs.Values.length) % vs.Values.length;
+            currentValues[enumName] = vs.Values[idx];
+
+            handleControlChange(enumName);
+        }
+
+        function handleControlChange(enumName) {
+            updateOptionUIState(enumName);
+            evaluateDependencies();
+            updateCode();
+        }
+
+        function updateOptionUIState(enumName) {
+            const opt = optionByEnumName[enumName];
+            const stepper = document.getElementById(`stepper-${enumName}`);
+            const valText = document.getElementById(`val-${enumName}`);
+            if (!opt || !stepper || !valText) return;
+
+            const val = currentValues[enumName];
+            
+            // Format output text
+            let displayVal = val;
+            if (opt.IsPercent) {
+                displayVal = `${Math.round(val * 100)}%`;
+            } else if (opt.OptionType === "Boolean") {
+                displayVal = val ? "Yes" : "No";
+            }
+
+            valText.textContent = displayVal;
+
+            // Mark modified
+            if (val !== opt.DefaultValue) {
+                stepper.classList.add("modified");
+            } else {
+                stepper.classList.remove("modified");
+            }
+        }
+
+        function updateUI() {
+            allOptions.forEach(opt => {
+                const val = currentValues[opt.OptionEnumName];
+                updateOptionUIState(opt.OptionEnumName);
+            });
+            evaluateDependencies();
+        }
+
+        // Evaluate dependencies and disable controls accordingly
+        function evaluateDependencies() {
+            allOptions.forEach(opt => {
+                const stepper = document.getElementById(`stepper-${opt.OptionEnumName}`);
+                const row = document.getElementById(`row-${opt.OptionEnumName}`);
+                if (stepper) {
+                    stepper.classList.remove("disabled");
+                    if (row) row.style.opacity = "1";
+                }
+            });
+
+            allOptions.forEach(opt => {
+                if (opt.DisabledOptions) {
+                    const val = currentValues[opt.OptionEnumName];
+                    const depInfo = opt.DisabledOptions;
+                    const triggerValue = depInfo.Value;
+                    const targets = Array.isArray(depInfo.DisabledOptions) ? depInfo.DisabledOptions : [depInfo.DisabledOptions];
+                    
+                    const isTriggered = (val === triggerValue);
+
+                    if (isTriggered) {
+                        targets.forEach(targetName => {
+                            const stepper = document.getElementById(`stepper-${targetName}`);
+                            const row = document.getElementById(`row-${targetName}`);
+                            if (stepper) {
+                                stepper.classList.add("disabled");
+                                if (row) row.style.opacity = "0.3";
+                            }
+                        });
+                    }
+                }
+            });
+        }
+
+        // Copy / Paste Overlay
+        function copyCodeToClipboard() {
+            const code = document.getElementById("sandbox-code-text").textContent;
+            navigator.clipboard.writeText(code).then(() => {
+                showToast("Code copied to clipboard!");
+            });
+        }
+
+        function showToast(msg) {
+            const toast = document.getElementById("toast-msg");
+            toast.textContent = msg;
+            toast.classList.add("show");
+            setTimeout(() => {
+                toast.classList.remove("show");
+            }, 2000);
+        }
+
+        function showPasteModal() {
+            document.getElementById("paste-modal").style.display = "flex";
+            document.getElementById("paste-modal-input").focus();
+        }
+
+        function closePasteModal() {
+            document.getElementById("paste-modal").style.display = "none";
+            document.getElementById("paste-modal-input").value = "";
+        }
+
+        function applyPasteCode() {
+            const code = document.getElementById("paste-modal-input").value;
+            if (code) {
+                loadFromCode(code);
+                closePasteModal();
+                showToast("Sandbox code imported!");
+            }
+        }
+
+        // Save & Load Custom presets functionality
+        function createCustomPreset() {
+            const name = prompt("Enter a name for your custom preset:");
+            if (!name) return;
+
+            const activeCode = document.getElementById("sandbox-code-text").textContent;
+            const newPreset = {
+                name: name,
+                category: "Custom",
+                difficulty: null,
+                code: activeCode,
+                default: false,
+                desc: `Custom settings preset: "${name}".`
+            };
+
+            // Add custom preset
+            const stored = localStorage.getItem(LOCAL_STORAGE_KEY);
+            let customList = [];
+            if (stored) {
+                try { customList = JSON.parse(stored); } catch (e) {}
+            }
+            customList.push(newPreset);
+            saveCustomPresets(customList);
+            
+            // Refresh list
+            presets = [...rawPresets, ...customList];
+            
+            // Switch category to Custom
+            currentCategory = "Custom";
+            activePresetIndex = presets.indexOf(newPreset);
+            detectActivePresetByCode(activeCode);
+            showToast("Custom preset created!");
+        }
+
+        function duplicateActivePreset() {
+            const activePreset = presets[activePresetIndex];
+            const name = prompt(`Enter a name for duplicate of ${activePreset.name}:`, `${activePreset.name} Copy`);
+            if (!name) return;
+
+            const newPreset = {
+                ...activePreset,
+                name: name,
+                category: "Custom",
+                default: false,
+                desc: `Copy of preset "${activePreset.name}".`
+            };
+
+            const stored = localStorage.getItem(LOCAL_STORAGE_KEY);
+            let customList = [];
+            if (stored) {
+                try { customList = JSON.parse(stored); } catch (e) {}
+            }
+            customList.push(newPreset);
+            saveCustomPresets(customList);
+            
+            presets = [...rawPresets, ...customList];
+            currentCategory = "Custom";
+            activePresetIndex = presets.indexOf(newPreset);
+            applyPreset(newPreset);
+            showToast("Preset duplicated!");
+        }
+
+        function deleteActivePreset() {
+            const activePreset = presets[activePresetIndex];
+            if (activePreset.category !== "Custom") {
+                alert("Only custom user-created presets can be deleted!");
+                return;
+            }
+
+            if (!confirm(`Are you sure you want to delete custom preset "${activePreset.name}"?`)) return;
+
+            const stored = localStorage.getItem(LOCAL_STORAGE_KEY);
+            let customList = [];
+            if (stored) {
+                try { customList = JSON.parse(stored); } catch (e) {}
+            }
+            
+            // Filter out
+            customList = customList.filter(p => p.name !== activePreset.name);
+            saveCustomPresets(customList);
+
+            presets = [...rawPresets, ...customList];
+            
+            // Fall back to Scavenger
+            currentCategory = "Difficulty";
+            activePresetIndex = 0;
+            applyPreset(presets[0]);
+            showToast("Preset deleted!");
+        }
+
+        function saveSettings() {
+            const currentCode = document.getElementById("sandbox-code-text").textContent;
+            showToast(`Settings Saved! Code: ${currentCode}`);
+        }
+
+        // Initialization
+        loadCustomPresets();
+        renderTabs();
+        renderOptions();
+        
+        // Load first preset
+        applyPreset(presets[0]);
+    </script>
+</body>
+</html>
