@@ -1,6 +1,6 @@
 # 7 Days to Die - 3.0 'Sandbox Siege' Specifications
 
-This repository contains reverse-engineered technical specifications and configuration details for the **Sandbox Options** introduced in the 3.0 "Sandbox Siege" update of *7 Days to Die*. 
+This repository contains technical specifications and configuration details for the **Sandbox Options** introduced in the 3.0 "Sandbox Siege" update of *7 Days to Die*. 
 
 These resources are compiled with the intent to aid developers building server management applications, web-based control panels, and automated game configuration utilities for dedicated servers.
 
@@ -68,4 +68,4 @@ The data contained in these reports was extracted directly from the game's compi
 *   The raw preset structures and parameters are loaded by `SandboxOptionManager::LoadInternalPresets` from the compiled `TextAsset` located at `Data/Sandbox/sandbox_presets`.
 *   This asset was retrieved by parsing the `UnityFS` version 8 file structure of `7DaysToDie_Data/data.unity3d`. Individual 128KB blocks (specifically Blocks 310–320) were decompressed using raw LZ4 block decompression starting from an aligned physical offset of `7520`.
 
-*Disclaimer: This is a purely academic project of technical exploration and reverse engineering. All properties, asset names, and game titles are trademarks of The Fun Pimps.*
+*Disclaimer: This is a purely academic project of technical exploration. All properties, asset names, and game titles are trademarks of The Fun Pimps.*
