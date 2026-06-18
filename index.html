@@ -95,62 +95,13 @@
             height: 100%;
         }
 
-        /* Artwork Box Container */
-        .artwork-container {
-            display: flex;
-            align-items: center;
-            gap: 0.75rem;
+        /* Sidebar Logo */
+        .sidebar-logo {
             width: 100%;
-            justify-content: center;
-            margin-bottom: 0.25rem;
-        }
-
-        .preset-artwork-box {
-            width: 130px;
-            height: 130px;
+            height: auto;
             border: 1px solid var(--border-grey);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            font-family: var(--font-game);
-            font-size: 1.3rem;
-            font-weight: 700;
-            text-transform: uppercase;
-            text-align: center;
-            padding: 0.5rem;
-            box-shadow: inset 0 0 20px rgba(0,0,0,0.85);
-            position: relative;
-        }
-
-        .preset-artwork-box.difficulty {
-            border-color: #c62828;
-            background: radial-gradient(circle, #3a1111 0%, #150505 100%);
-            color: #ff3333;
-            text-shadow: 0 0 8px rgba(255, 51, 51, 0.6);
-        }
-
-        .preset-artwork-box.official {
-            border-color: #ff9f43;
-            background: radial-gradient(circle, #3e2614 0%, #150a04 100%);
-            color: #ff9f43;
-            text-shadow: 0 0 8px rgba(255, 159, 67, 0.6);
-        }
-
-        .preset-artwork-box.custom {
-            border-color: #9b59b6;
-            background: radial-gradient(circle, #2e1a36 0%, #0f0812 100%);
-            color: #be90d4;
-            text-shadow: 0 0 8px rgba(190, 144, 212, 0.6);
-        }
-
-        .skull-badge {
-            font-family: var(--font-game);
-            font-size: 1.15rem;
-            font-weight: 700;
-            color: var(--border-red);
-            display: flex;
-            align-items: center;
-            gap: 4px;
+            box-shadow: 0 0 15px rgba(255, 0, 0, 0.15);
+            margin-bottom: 0.25rem;
         }
 
         /* Steppers */
@@ -635,40 +586,16 @@
             
             <!-- Left Panel (Presets & Actions) -->
             <aside class="left-panel">
-                <!-- Preset Artwork and Skulls badge next to it -->
-                <div class="artwork-container">
-                    <div class="preset-artwork-box" id="preset-art">
-                        <!-- Filled dynamically -->
-                    </div>
-                    <div class="skull-badge" id="skull-badge">
-                        💀 x4
-                    </div>
-                </div>
+                <!-- Sidebar Logo -->
+                <img src="laby_sandbox_encoder.png" class="sidebar-logo" alt="Laby's Sandbox Encoder">
 
-                <!-- Stepper rows -->
-                <div class="selector-row">
-                    <!-- Preset Category -->
-                    <div class="game-stepper" id="preset-category-stepper">
-                        <span class="stepper-arrow" id="left-arrow-category" onclick="cyclePresetCategory(-1)">◀</span>
-                        <div class="stepper-value-box">
-                            <span class="stepper-value" id="preset-category-val">Difficulty</span>
-                        </div>
-                        <span class="stepper-arrow" id="right-arrow-category" onclick="cyclePresetCategory(1)">▶</span>
-                    </div>
-
-                    <!-- Preset Name -->
-                    <div class="game-stepper" id="preset-name-stepper">
-                        <span class="stepper-arrow" id="left-arrow-name" onclick="cyclePresetName(-1)">◀</span>
-                        <div class="stepper-value-box">
-                            <span class="stepper-value" id="preset-name-val">Scavenger</span>
-                        </div>
-                        <span class="stepper-arrow" id="right-arrow-name" onclick="cyclePresetName(1)">▶</span>
-                    </div>
-                </div>
-
-                <!-- Description -->
-                <div class="desc-box" id="preset-desc">
-                    Normal: Your resolve is thicker than blackstrap coffee.
+                <!-- Hidden elements to prevent JS errors -->
+                <div style="display: none;">
+                    <div id="preset-art"></div>
+                    <div id="skull-badge"></div>
+                    <span id="preset-category-val"></span>
+                    <span id="preset-name-val"></span>
+                    <div id="preset-desc"></div>
                 </div>
 
                 <!-- Action Buttons -->
