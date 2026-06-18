@@ -722,7 +722,7 @@
                 <footer class="panel-footer">
                     <div class="footer-btn-group">
                         <button class="game-btn footer-btn" onclick="resetToDefaults()">Defaults</button>
-                        <button class="game-btn footer-btn" onclick="saveSettings()">Save</button>
+                        <button class="game-btn footer-btn" onclick="copyUrlToClipboard()">Copy URL</button>
                     </div>
                 </footer>
             </main>
@@ -4481,10 +4481,12 @@
             showToast("Preset deleted!");
         }
 
-        function saveSettings() {
-            const input = document.getElementById("sandbox-code-text");
-            const currentCode = input ? input.value : "A";
-            showToast(`Settings Saved! Code: ${currentCode}`);
+        function copyUrlToClipboard() {
+            navigator.clipboard.writeText(window.location.href).then(() => {
+                showToast("URL copied to clipboard!");
+            }).catch(err => {
+                showToast("Failed to copy URL");
+            });
         }
 
         function showServerConfigModal() {
