@@ -202,7 +202,8 @@
         /* Description Box */
         .desc-box {
             width: 100%;
-            height: 164px;
+            flex: 1;
+            min-height: 68px;
             border: 1px solid var(--border-grey);
             background-color: #000000;
             padding: 6px 10px;
@@ -244,10 +245,6 @@
             background-color: #ffffff;
             color: #000000;
             border-color: #ffffff;
-        }
-
-        .left-panel .back-btn {
-            margin-top: auto;
         }
 
         /* Code copy/paste row */
@@ -326,7 +323,7 @@
 
         #sub-tabs-row {
             display: flex !important;
-            justify-content: center;
+            justify-content: flex-start;
             gap: 4px;
         }
 
@@ -689,9 +686,6 @@
                     </div>
                     <button class="game-btn" onclick="showPasteModal()">Paste Code</button>
                 </div>
-
-                <!-- Back button at the bottom -->
-                <button class="game-btn back-btn" onclick="window.history.back()">Back</button>
             </aside>
 
             <!-- Right Panel (Options & Tabs) -->
