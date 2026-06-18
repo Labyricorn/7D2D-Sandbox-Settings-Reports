@@ -204,6 +204,7 @@
             display: flex;
             flex-direction: column;
             gap: 4px;
+            margin-top: auto;
         }
 
         .code-display-box {
@@ -589,12 +590,31 @@
                 <!-- Sidebar Logo -->
                 <img src="laby_sandbox_encoder.png" class="sidebar-logo" alt="Laby's Sandbox Encoder">
 
+                <!-- Stepper rows -->
+                <div class="selector-row">
+                    <!-- Preset Category -->
+                    <div class="game-stepper" id="preset-category-stepper">
+                        <span class="stepper-arrow" id="left-arrow-category" onclick="cyclePresetCategory(-1)">◀</span>
+                        <div class="stepper-value-box">
+                            <span class="stepper-value" id="preset-category-val">Difficulty</span>
+                        </div>
+                        <span class="stepper-arrow" id="right-arrow-category" onclick="cyclePresetCategory(1)">▶</span>
+                    </div>
+
+                    <!-- Preset Name -->
+                    <div class="game-stepper" id="preset-name-stepper">
+                        <span class="stepper-arrow" id="left-arrow-name" onclick="cyclePresetName(-1)">◀</span>
+                        <div class="stepper-value-box">
+                            <span class="stepper-value" id="preset-name-val">Scavenger</span>
+                        </div>
+                        <span class="stepper-arrow" id="right-arrow-name" onclick="cyclePresetName(1)">▶</span>
+                    </div>
+                </div>
+
                 <!-- Hidden elements to prevent JS errors -->
                 <div style="display: none;">
                     <div id="preset-art"></div>
                     <div id="skull-badge"></div>
-                    <span id="preset-category-val"></span>
-                    <span id="preset-name-val"></span>
                     <div id="preset-desc"></div>
                 </div>
 
