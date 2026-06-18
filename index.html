@@ -1741,7 +1741,7 @@
         "OverrideOptionName": null,
         "ValueSetName": "MaxDegradationAmounts",
         "DefaultValue": 0.1,
-        "IsPercent": false,
+        "IsPercent": true,
         "NewUISection": false,
         "DisabledOptions": null
       },
@@ -1774,7 +1774,7 @@
         "OverrideOptionName": null,
         "ValueSetName": "SpeedValues",
         "DefaultValue": 1,
-        "IsPercent": false,
+        "IsPercent": true,
         "NewUISection": true,
         "DisabledOptions": null
       },
@@ -1807,7 +1807,7 @@
         "OverrideOptionName": null,
         "ValueSetName": "JarRefund",
         "DefaultValue": 0.6,
-        "IsPercent": false,
+        "IsPercent": true,
         "NewUISection": false,
         "DisabledOptions": null
       }
@@ -2608,7 +2608,7 @@
         "OverrideOptionName": null,
         "ValueSetName": "CropGrowthSpeed",
         "DefaultValue": 1,
-        "IsPercent": false,
+        "IsPercent": true,
         "NewUISection": false,
         "DisabledOptions": null
       }
@@ -2740,13 +2740,13 @@
         "DisabledOptions": null
       },
       {
-        "OptionName": "Dew Collector Output",
+        "OptionName": "Dew Collector Yield",
         "OptionEnumName": "DewCollectorOutput",
         "OptionType": "Float",
         "OverrideOptionName": null,
         "ValueSetName": "CollectorOutput",
         "DefaultValue": 1,
-        "IsPercent": false,
+        "IsPercent": true,
         "NewUISection": false,
         "DisabledOptions": null
       },
@@ -2757,7 +2757,7 @@
         "OverrideOptionName": null,
         "ValueSetName": "DewCollectorInput",
         "DefaultValue": 1,
-        "IsPercent": false,
+        "IsPercent": true,
         "NewUISection": false,
         "DisabledOptions": null
       },
@@ -2779,7 +2779,7 @@
         "OverrideOptionName": null,
         "ValueSetName": "CollectorOutput",
         "DefaultValue": 1,
-        "IsPercent": false,
+        "IsPercent": true,
         "NewUISection": false,
         "DisabledOptions": null
       },
@@ -3618,7 +3618,14 @@
             "EntityIncomingDamage": "Entity Damage In",
             "ZombieRageChance": "Zombie Rage",
             "AirDropRandomTime": "Air Drop Variance",
-            "DayLightLength": "Daylight Length"
+            "DayLightLength": "Daylight Length",
+            "POITierLSModifier": "POI Tier Loot Stage",
+            "DewCollectorOutput": "Dew Collector Yield",
+            "TraderItemAbundance": "Trader Item Count",
+            "VendingItemAbundance": "Vending Item Count",
+            "TraderResetInterval": "Trader Reset",
+            "VendingResetInterval": "Vending Reset",
+            "GlobalTSModifier": "Global Trader Stage"
         };
 
         // Local storage key for custom user presets
@@ -4090,6 +4097,39 @@
                 return val ? "Yes" : "No";
             }
             
+            // Custom mappings:
+            if (enumName === "HeadshotMode") {
+                const map = { 0: "None", 1: "Headshot Only", 2: "Headshot Finisher" };
+                return map[val] !== undefined ? map[val] : val;
+            }
+            if (enumName === "AISmellMode") {
+                const map = { 0: "None", 1: "Sense", 2: "Walk", 3: "Run", 4: "Sprint", 5: "Nightmare" };
+                return map[val] !== undefined ? map[val] : val;
+            }
+            if (["GlobalGSModifier", "BiomeLSModifier", "GlobalLSModifier", "POITierLSModifier", "GlobalTSModifier", "TraderItemAbundance", "VendingItemAbundance"].includes(enumName)) {
+                const map = { 0.25: "Very Low", 0.5: "Low", 1: "Default", 1.5: "High", 2: "Very High" };
+                return map[val] !== undefined ? map[val] : val;
+            }
+            if (enumName === "ItemDegradation") {
+                const map = { 0: "Disabled", 0.25: "Very Low", 0.5: "Low", 1: "Default", 1.5: "High", 2: "Very High" };
+                return map[val] !== undefined ? map[val] : val;
+            }
+            if (enumName === "BackpackCrafting") {
+                const map = { 0: "No", 1: "Yes", 2: "Limited", 3: "Workbench Only" };
+                return map[val] !== undefined ? map[val] : val;
+            }
+            if (enumName === "SmeltingType") {
+                return val ? "Recipes" : "Smelter";
+            }
+            if (enumName === "TraderProtection") {
+                const map = { 0: "Yes", 1: "Claimable", 2: "Not Claimable" };
+                return map[val] !== undefined ? map[val] : val;
+            }
+            if (enumName === "SillyCelebrate") {
+                const map = { 0: "No", 1: "Yes", 2: "Headshot Only" };
+                return map[val] !== undefined ? map[val] : val;
+            }
+            
             // Specific Enum / Select options mapping:
             if (enumName === "ShowXP") {
                 const map = { 0: "All", 1: "Self", 2: "Party", 3: "None" };
@@ -4137,10 +4177,6 @@
                 const map = { 0: "Disabled", 1: "Day", 2: "Night", 3: "All" };
                 return map[val] !== undefined ? map[val] : val;
             }
-            if (enumName === "AISmellMode") {
-                const map = { 0: "Disabled", 1: "Sense", 2: "Walk", 3: "Run", 4: "Sprint", 5: "Nightmare" };
-                return map[val] !== undefined ? map[val] : val;
-            }
             
             // Max Tech Type
             if (enumName === "MaxTechType") {
@@ -4158,14 +4194,10 @@
             }
             if (enumName === "LootRespawnDays") {
                 if (val === -1) return "Disabled";
-                return `${val} Days`;
+                return val;
             }
-            if (enumName === "TraderResetInterval") {
-                if (val === -1) return "Disabled";
-                return `${val} Days`;
-            }
-            if (enumName === "VendingResetInterval") {
-                if (val === -1) return "Disabled";
+            if (enumName === "TraderResetInterval" || enumName === "VendingResetInterval") {
+                if (val === -1) return "Default";
                 return `${val} Days`;
             }
             if (enumName === "AirDropFrequency") {
@@ -4190,11 +4222,6 @@
                 return `${val} Hours`;
             }
             
-            // Trader Protection (TraderProtection)
-            if (enumName === "TraderProtection") {
-                const map = { 0: "Enabled", 1: "Disabled", 2: "Inside Only" };
-                return map[val] !== undefined ? map[val] : val;
-            }
             // Trader Hours (TraderHours)
             if (enumName === "TraderHours") {
                 const map = {
@@ -4230,14 +4257,14 @@
             // Crop Growth Speed
             if (enumName === "CropGrowthSpeed") {
                 if (val === 1000) return "Instant";
-                if (val === 0) return "Disabled";
+                if (val === 0) return "NONE";
                 if (val === 1) return "Default";
                 return `${Math.round(val * 100)}%`;
             }
             
             // Floats with "Default" for value 1
             const defaultIfOneEnums = [
-                "GlobalGSModifier", "BiomeGSModifier", "HeatMapSensitivity"
+                "BiomeGSModifier", "HeatMapSensitivity"
             ];
 
             if (defaultIfOneEnums.includes(enumName)) {
@@ -4275,7 +4302,9 @@
             ];
             
             if (percentageEnums.includes(enumName) || opt.IsPercent) {
-                return `${Math.round(val * 100)}%`;
+                const pct = Math.round(val * 100);
+                if (pct === 0) return "NONE";
+                return `${pct}%`;
             }
             
             return val;
