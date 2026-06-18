@@ -22,7 +22,7 @@ This document details all **150** sandbox options available in the new Sandbox S
 | Stamina Usage | `StaminaUsage` | **AJ (9)** | Float | 1 | [ 0, 0.25, 0.5, 0.75, 1, 1.25, 1.5, 1.75, 2 ] | A: 0, B: 0.25, C: 0.5, D: 0.75, E: 1, F: 1.25, G: 1.5, H: 1.75, I: 2 | - | Disables: [StaminaRegen] when value is 0 |
 | XP Multiplier | `XPMultiplier` | **AS (18)** | Float | 1 | [ 0, 0.25, 0.5, 0.75, 1, 1.25, 1.5, 1.75, 2, 3, 5 ] | A: 0, B: 0.25, C: 0.5, D: 0.75, E: 1, F: 1.25, G: 1.5, H: 1.75, I: 2, J: 3, K: 5 | Yes | - |
 | Show XP | `ShowXP` | **AT (19)** | Int | 0 | [ 0, 1, 2, 3 ] | A: 0, B: 1, C: 2, D: 3 | - | - |
-| Level Health/Stam Bonus | `PlayerLevelBonusApplied` | **AL (11)** | Bool |  | [ False, True ] | A: False, B: True | - | - |
+| Level Health/Stam Bonus | `PlayerLevelBonusApplied` | **AL (11)** | Bool | True | [ False, True ] | A: False, B: True | - | - |
 | Skill Gain Rate | `SkillGainRate` | **EM (116)** | Int | 1 | [ 1, 2, 3, 4, 5 ] | A: 1, B: 2, C: 3, D: 4, E: 5 | - | Disables: [SkillPointsPerLevel] when value is 0 |
 | Skill Gain Amount | `SkillPointsPerLevel` | **EN (117)** | Int | 1 | [ 0, 1, 2, 3, 4, 5, 6, 7 ] | A: 0, B: 1, C: 2, D: 3, E: 4, F: 5, G: 6, H: 7 | - | - |
 | Death Penalty | `DeathPenalty` | **BA (26)** | Int | 1 | [ 0, 1, 2, 3 ] | A: 0, B: 1, C: 2, D: 3 | Yes | - |
@@ -33,7 +33,7 @@ This document details all **150** sandbox options available in the new Sandbox S
 | Drop On Death | `DropOnDeath` | **BB (27)** | Int | 1 | [ 0, 1, 2, 3, 4 ] | A: 0, B: 1, C: 2, D: 3, E: 4 | - | - |
 | Drop On Quit | `DropOnQuit` | **BC (28)** | Int | 0 | [ 0, 1, 2, 3 ] | A: 0, B: 1, C: 2, D: 3 | - | - |
 | Infection Rate | `InfectionRate` | **BD (29)** | Float | 1 | [ 0, 0.25, 0.5, 0.75, 1, 1.25, 1.5, 2, 3 ] | A: 0, B: 0.25, C: 0.5, D: 0.75, E: 1, F: 1.25, G: 1.5, H: 2, I: 3 | Yes | - |
-| Allow Newbie Coat | `NewbieCoat` | **AP (15)** | Bool |  | [ False, True ] | A: False, B: True | - | - |
+| Allow Newbie Coat | `NewbieCoat` | **AP (15)** | Bool | True | [ False, True ] | A: False, B: True | - | - |
 | Encumbrance Modifier | `EncumbranceModifier` | **AU (20)** | Float | 1 | [ 10, 1.35, 1, 0.7, 0.35, 0 ] | A: 10, B: 1.35, C: 1, D: 0.7, E: 0.35, F: 0 | - | - |
 | Jar Refund | `JarRefund` | **AM (12)** | Float | 0.6 | [ 0, 0.05, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1 ] | A: 0, B: 0.05, C: 0.1, D: 0.2, E: 0.3, F: 0.4, G: 0.5, H: 0.6, I: 0.7, J: 0.8, K: 0.9, L: 1 | - | - |
 
@@ -41,7 +41,7 @@ This document details all **150** sandbox options available in the new Sandbox S
 
 | Option Name | XML Property / Enum Name | Enum ID | Type | Default | Values / Range | Value Code Map | UI Section Start | Dependencies |
 | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :---: | :--- |
-| Enemy Spawn | `EnemySpawnMode` | **BE (30)** | Bool |  | [ False, True ] | A: False, B: True | - | - |
+| Enemy Spawn | `EnemySpawnMode` | **BE (30)** | Bool | True | [ False, True ] | A: False, B: True | - | - |
 | Max Enemy Type | `MaxEnemyTier` | **BR (43)** | Int | 5 | [ 0, 1, 2, 3, 4, 5 ] | A: 0, B: 1, C: 2, D: 3, E: 4, F: 5 | - | - |
 | Biome Enemy Density | `BiomeEnemyDensity` | **BU (46)** | Int | 0 | [ 0, 1, 2, 3, 4, 5 ] | A: 0, B: 1, C: 2, D: 3, E: 4, F: 5 | - | - |
 | Biome Enemy Respawn | `BiomeZombieRespawn` | **BS (44)** | Int | 0 | [ 0, 1, 2, 3, 4, 5 ] | A: 0, B: 1, C: 2, D: 3, E: 4, F: 5 | - | - |
@@ -51,8 +51,8 @@ This document details all **150** sandbox options available in the new Sandbox S
 | Entity Block Damage | `BlockDamageAI` | **BG (32)** | Float | 1 | [ 0, 0.25, 0.35, 0.5, 0.65, 0.75, 0.85, 1, 1.25, 1.5, 2, 2.5, 3 ] | A: 0, B: 0.25, C: 0.35, D: 0.5, E: 0.65, F: 0.75, G: 0.85, H: 1, I: 1.25, J: 1.5, K: 2, L: 2.5, M: 3 | - | - |
 | Blood Moon Block Damage | `BlockDamageAIBM` | **BH (33)** | Float | 1 | [ 0, 0.25, 0.35, 0.5, 0.65, 0.75, 0.85, 1, 1.25, 1.5, 2, 2.5, 3 ] | A: 0, B: 0.25, C: 0.35, D: 0.5, E: 0.65, F: 0.75, G: 0.85, H: 1, I: 1.25, J: 1.5, K: 2, L: 2.5, M: 3 | - | - |
 | Headshot Mode | `HeadshotMode` | **AQ (16)** | Int | 0 | [ 0, 1, 2 ] | A: 0, B: 1, C: 2 | - | - |
-| Entity Health Bars | `ShowHealthBars` | **AN (13)** | Bool |  | [ False, True ] | A: False, B: True | - | - |
-| Show Entity Damage | `ShowEnemyDamage` | **AO (14)** | Bool |  | [ False, True ] | A: False, B: True | - | - |
+| Entity Health Bars | `ShowHealthBars` | **AN (13)** | Bool | False | [ False, True ] | A: False, B: True | - | - |
+| Show Entity Damage | `ShowEnemyDamage` | **AO (14)** | Bool | False | [ False, True ] | A: False, B: True | - | - |
 | Zombie Day Speed | `ZombieMove` | **BI (34)** | Int | 0 | [ 0, 1, 2, 3, 4 ] | A: 0, B: 1, C: 2, D: 3, E: 4 | Yes | - |
 | Zombie Night Speed | `ZombieMoveNight` | **BJ (35)** | Int | 3 | [ 0, 1, 2, 3, 4 ] | A: 0, B: 1, C: 2, D: 3, E: 4 | - | - |
 | Zombie Feral Speed | `ZombieFeralMove` | **BK (36)** | Int | 3 | [ 0, 1, 2, 3, 4 ] | A: 0, B: 1, C: 2, D: 3, E: 4 | - | - |
@@ -60,8 +60,8 @@ This document details all **150** sandbox options available in the new Sandbox S
 | Zombie Feral Sense | `ZombieFeralSense` | **BM (38)** | Int | 0 | [ 0, 1, 2, 3 ] | A: 0, B: 1, C: 2, D: 3 | Yes | - |
 | Zombie AI Smell Mode | `AISmellMode` | **BN (39)** | Int | 3 | [ 0, 1, 2, 3, 4, 5 ] | A: 0, B: 1, C: 2, D: 3, E: 4, F: 5 | - | - |
 | Zombie Rage Chance | `ZombieRageChance` | **BP (41)** | Float | 0.15 | [ 0, 0.15, 0.3, 0.35, 0.4, 0.5, 0.6, 0.75, 0.9, 1 ] | A: 0, B: 0.15, C: 0.3, D: 0.35, E: 0.4, F: 0.5, G: 0.6, H: 0.75, I: 0.9, J: 1 | - | - |
-| Allow Zombie Digging | `AllowZombieDigging` | **BO (40)** | Bool |  | [ False, True ] | A: False, B: True | - | - |
-| Zombies Eat Animals | `ZombiesEatAnimals` | **BV (47)** | Bool |  | [ False, True ] | A: False, B: True | - | - |
+| Allow Zombie Digging | `AllowZombieDigging` | **BO (40)** | Bool | True | [ False, True ] | A: False, B: True | - | - |
+| Zombies Eat Animals | `ZombiesEatAnimals` | **BV (47)** | Bool | True | [ False, True ] | A: False, B: True | - | - |
 
 ## Category: World (World)
 
@@ -69,8 +69,8 @@ This document details all **150** sandbox options available in the new Sandbox S
 | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :---: | :--- |
 | Global GameStage | `GlobalGSModifier` | **CI (60)** | Float | 1 | [ 0.25, 0.5, 1, 1.5, 2 ] | A: 0.25, B: 0.5, C: 1, D: 1.5, E: 2 | - | - |
 | Biome GameStage | `BiomeGSModifier` | **CJ (61)** | Float | 1 | [ 0.25, 0.5, 1, 1.5, 2 ] | A: 0.25, B: 0.5, C: 1, D: 1.5, E: 2 | - | - |
-| Biome Progression | `BiomeProgression` | **CD (55)** | Bool |  | [ False, True ] | A: False, B: True | - | - |
-| Temperature Survival | `TemperatureSurvival` | **CE (56)** | Bool |  | [ False, True ] | A: False, B: True | - | - |
+| Biome Progression | `BiomeProgression` | **CD (55)** | Bool | True | [ False, True ] | A: False, B: True | - | - |
+| Temperature Survival | `TemperatureSurvival` | **CE (56)** | Bool | True | [ False, True ] | A: False, B: True | - | - |
 | Max Tech Type | `MaxTechType` | **CW (74)** | Int | 4 | [ 0, 1, 2, 3, 4 ] | A: 0, B: 1, C: 2, D: 3, E: 4 | - | - |
 | Workstations in the Wild | `WorkstationsInTheWild` | **CV (73)** | Float | 0 | [ 0, 0.05, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1 ] | A: 0, B: 0.05, C: 0.1, D: 0.2, E: 0.3, F: 0.4, G: 0.5, H: 0.6, I: 0.7, J: 0.8, K: 0.9, L: 1 | - | - |
 | Blood Moon Frequency | `BloodMoonFrequency` | **BW (48)** | Int | 7 | [ 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 14, 20, 30 ] | A: 0, B: 1, C: 2, D: 3, E: 4, F: 5, G: 6, H: 7, I: 8, J: 9, K: 10, L: 14, M: 20, N: 30 | Yes | Disables: [BloodMoonRange, BloodMoonEnemyCount, BloodMoonWarning] when value is 0 |
@@ -80,16 +80,16 @@ This document details all **150** sandbox options available in the new Sandbox S
 | Air Drops | `AirDropFrequency` | **CA (52)** | Int | 3 | [ 0, 1, 2, 3, 4, 5, 6 ] | A: 0, B: 1, C: 2, D: 3, E: 4, F: 5, G: 6 | - | Disables: [AirDropRandomTime, AirDropMarker] when value is 0 |
 | Air Drop Random Time | `AirDropRandomTime` | **CC (54)** | Int | 0 | [ 0, 1, 2, 3, 4, 5, 6 ] | A: 0, B: 1, C: 2, D: 3, E: 4, F: 5, G: 6 | - | - |
 | Storm Frequency | `StormFreq` | **CF (57)** | Float | 1 | [ 0, 0.5, 1, 1.5, 2, 3, 4, 5 ] | A: 0, B: 0.5, C: 1, D: 1.5, E: 2, F: 3, G: 4, H: 5 | Yes | Disables: [StormWarning] when value is 0 |
-| Storm Warning | `StormWarning` | **CG (58)** | Bool |  | [ False, True ] | A: False, B: True | - | - |
+| Storm Warning | `StormWarning` | **CG (58)** | Bool | True | [ False, True ] | A: False, B: True | - | - |
 | Heatmap Sensitivity | `HeatMapSensitivity` | **CH (59)** | Float | 1 | [ 0, 0.25, 0.5, 1, 1.5, 2 ] | A: 0, B: 0.25, C: 0.5, D: 1, E: 1.5, F: 2 | - | - |
 | 24 Day Cycle | `DayNightLength` | **CO (66)** | Int | 60 | [ 10, 20, 30, 40, 50, 60, 90, 120 ] | A: 10, B: 20, C: 30, D: 40, E: 50, F: 60, G: 90, H: 120 | - | - |
 | Day Light Length | `DayLightLength` | **CP (67)** | Int | 18 | [ 0, 4, 6, 8, 10, 12, 14, 16, 18, 20, 24 ] | A: 0, B: 4, C: 6, D: 8, E: 10, F: 12, G: 14, H: 16, I: 18, J: 20, K: 24 | - | - |
-| Mark Air Drops | `AirDropMarker` | **CB (53)** | Bool |  | [ False, True ] | A: False, B: True | Yes | - |
-| Allow Map | `AllowMap` | **CQ (68)** | Bool |  | [ False, True ] | A: False, B: True | - | - |
-| Allow Compass | `AllowCompass` | **CR (69)** | Bool |  | [ False, True ] | A: False, B: True | - | - |
-| Allow Screen Markers | `AllowScreenMarkers` | **CS (70)** | Bool |  | [ False, True ] | A: False, B: True | - | - |
-| Show Location Info | `ShowLocationInfo` | **CT (71)** | Bool |  | [ False, True ] | A: False, B: True | - | - |
-| Show Day/Time | `ShowDayTime` | **CU (72)** | Bool |  | [ False, True ] | A: False, B: True | - | - |
+| Mark Air Drops | `AirDropMarker` | **CB (53)** | Bool | True | [ False, True ] | A: False, B: True | Yes | - |
+| Allow Map | `AllowMap` | **CQ (68)** | Bool | True | [ False, True ] | A: False, B: True | - | - |
+| Allow Compass | `AllowCompass` | **CR (69)** | Bool | True | [ False, True ] | A: False, B: True | - | - |
+| Allow Screen Markers | `AllowScreenMarkers` | **CS (70)** | Bool | True | [ False, True ] | A: False, B: True | - | - |
+| Show Location Info | `ShowLocationInfo` | **CT (71)** | Bool | True | [ False, True ] | A: False, B: True | - | - |
+| Show Day/Time | `ShowDayTime` | **CU (72)** | Bool | True | [ False, True ] | A: False, B: True | - | - |
 
 ## Category: Resources (Resources)
 
@@ -124,12 +124,12 @@ This document details all **150** sandbox options available in the new Sandbox S
 
 | Option Name | XML Property / Enum Name | Enum ID | Type | Default | Values / Range | Value Code Map | UI Section Start | Dependencies |
 | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :---: | :--- |
-| Crafting Progression | `CraftingProgression` | **DS (96)** | Bool |  | [ False, True ] | A: False, B: True | - | - |
+| Crafting Progression | `CraftingProgression` | **DS (96)** | Bool | True | [ False, True ] | A: False, B: True | - | - |
 | Crafting Max Tier | `CraftingMaxTier` | **DW (100)** | Int | 6 | [ 1, 2, 3, 4, 5, 6 ] | A: 1, B: 2, C: 3, D: 4, E: 5, F: 6 | - | - |
 | Magazine Points | `PointsPerMagazine` | **EL (115)** | Int | 1 | [ 0, 1, 2, 3, 4, 5, 6, 7 ] | A: 0, B: 1, C: 2, D: 3, E: 4, F: 5, G: 6, H: 7 | - | - |
 | Backpack Crafting | `BackpackCrafting` | **DQ (94)** | Int | 1 | [ 0, 1, 2, 3 ] | A: 0, B: 1, C: 2, D: 3 | - | - |
-| Workstation Crafting | `WorkstationCrafting` | **DR (95)** | Bool |  | [ False, True ] | A: False, B: True | - | - |
-| Smelter Type | `SmeltingType` | **EA (104)** | Bool |  | [ False, True ] | A: False, B: True | - | - |
+| Workstation Crafting | `WorkstationCrafting` | **DR (95)** | Bool | True | [ False, True ] | A: False, B: True | - | - |
+| Smelter Type | `SmeltingType` | **EA (104)** | Bool | False | [ False, True ] | A: False, B: True | - | - |
 | Crafting Time | `CraftingTime` | **DT (97)** | Float | 1 | [ 0, 0.25, 0.5, 0.75, 1, 1.25, 1.5, 2, 3 ] | A: 0, B: 0.25, C: 0.5, D: 0.75, E: 1, F: 1.25, G: 1.5, H: 2, I: 3 | - | - |
 | Crafting Input | `CraftingInput` | **DU (98)** | Float | 1 | [ 0, 0.25, 0.5, 0.75, 1, 1.25, 1.5, 2, 3 ] | A: 0, B: 0.25, C: 0.5, D: 0.75, E: 1, F: 1.25, G: 1.5, H: 2, I: 3 | - | - |
 | Crafting Output | `CraftingOutput` | **DV (99)** | Float | 1 | [ 0.25, 0.5, 0.75, 1, 1.25, 1.5, 2, 3 ] | A: 0.25, B: 0.5, C: 0.75, D: 1, E: 1.25, F: 1.5, G: 2, H: 3 | - | - |
@@ -148,11 +148,11 @@ This document details all **150** sandbox options available in the new Sandbox S
 
 | Option Name | XML Property / Enum Name | Enum ID | Type | Default | Values / Range | Value Code Map | UI Section Start | Dependencies |
 | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :---: | :--- |
-| Trading Enabled | `TradersEnabled` | **EY (128)** | Bool |  | [ False, True ] | A: False, B: True | - | - |
-| Vending Machines Enabled | `VendingEnabled` | **EZ (129)** | Bool |  | [ False, True ] | A: False, B: True | - | - |
+| Trading Enabled | `TradersEnabled` | **EY (128)** | Bool | True | [ False, True ] | A: False, B: True | - | - |
+| Vending Machines Enabled | `VendingEnabled` | **EZ (129)** | Bool | True | [ False, True ] | A: False, B: True | - | - |
 | Trader Hours | `TraderHours` | **EX (127)** | Int | 0 | [ 0, 1, 2, 3, 4, 5, 6 ] | A: 0, B: 1, C: 2, D: 3, E: 4, F: 5, G: 6 | - | - |
 | Trader Protection | `TraderProtection` | **FC (132)** | Int | 0 | [ 0, 1, 2 ] | A: 0, B: 1, C: 2 | - | - |
-| Trading Dialog | `TraderDialog` | **EW (126)** | Bool |  | [ False, True ] | A: False, B: True | - | - |
+| Trading Dialog | `TraderDialog` | **EW (126)** | Bool | True | [ False, True ] | A: False, B: True | - | - |
 | Global TraderStage | `GlobalTSModifier` | **CN (65)** | Float | 1 | [ 0.25, 0.5, 1, 1.5, 2 ] | A: 0.25, B: 0.5, C: 1, D: 1.5, E: 2 | Yes | - |
 | Trader Max Tier | `TraderMaxTier` | **FG (136)** | Int | 6 | [ 1, 2, 3, 4, 5, 6 ] | A: 1, B: 2, C: 3, D: 4, E: 5, F: 6 | - | - |
 | Trader Item Abundance | `TraderItemAbundance` | **FE (134)** | Float | 1 | [ 0.25, 0.5, 1, 1.5, 2 ] | A: 0.25, B: 0.5, C: 1, D: 1.5, E: 2 | - | - |
@@ -167,13 +167,13 @@ This document details all **150** sandbox options available in the new Sandbox S
 
 | Option Name | XML Property / Enum Name | Enum ID | Type | Default | Values / Range | Value Code Map | UI Section Start | Dependencies |
 | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :---: | :--- |
-| Challenges Enabled | `ChallengesEnabled` | **FJ (139)** | Bool |  | [ False, True ] | A: False, B: True | - | - |
-| Quests Enabled | `QuestsEnabled` | **EO (118)** | Bool |  | [ False, True ] | A: False, B: True | - | - |
-| Intro Challenges Enabled | `IntroChallengesEnabled` | **FK (140)** | Bool |  | [ False, True ] | A: False, B: True | - | - |
-| Intro Quest Enabled | `IntroQuestEnabled` | **EP (119)** | Bool |  | [ False, True ] | A: False, B: True | - | - |
-| Trader to Trader Quests | `TraderToTraderQuestsEnabled` | **EQ (120)** | Bool |  | [ False, True ] | A: False, B: True | - | - |
-| Buried Quests Enabled | `BuriedQuestsEnabled` | **EU (124)** | Bool |  | [ False, True ] | A: False, B: True | - | - |
-| POI Quests Enabled | `POIQuestsEnabled` | **EV (125)** | Bool |  | [ False, True ] | A: False, B: True | - | - |
+| Challenges Enabled | `ChallengesEnabled` | **FJ (139)** | Bool | True | [ False, True ] | A: False, B: True | - | - |
+| Quests Enabled | `QuestsEnabled` | **EO (118)** | Bool | True | [ False, True ] | A: False, B: True | - | - |
+| Intro Challenges Enabled | `IntroChallengesEnabled` | **FK (140)** | Bool | True | [ False, True ] | A: False, B: True | - | - |
+| Intro Quest Enabled | `IntroQuestEnabled` | **EP (119)** | Bool | True | [ False, True ] | A: False, B: True | - | - |
+| Trader to Trader Quests | `TraderToTraderQuestsEnabled` | **EQ (120)** | Bool | True | [ False, True ] | A: False, B: True | - | - |
+| Buried Quests Enabled | `BuriedQuestsEnabled` | **EU (124)** | Bool | True | [ False, True ] | A: False, B: True | - | - |
+| POI Quests Enabled | `POIQuestsEnabled` | **EV (125)** | Bool | True | [ False, True ] | A: False, B: True | - | - |
 | Quests per Tier | `QuestsPerTier` | **ES (122)** | Int | 10 | [ 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15 ] | A: 0, B: 1, C: 2, D: 3, E: 4, F: 5, G: 6, H: 7, I: 8, J: 9, K: 10, L: 11, M: 12, N: 13, O: 14, P: 15 | - | - |
 | Quests per Day | `QuestProgressionDailyLimit` | **ET (123)** | Int | 4 | [ -1, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 ] | A: -1, B: 1, C: 2, D: 3, E: 4, F: 5, G: 6, H: 7, I: 8, J: 9, K: 10 | - | - |
 | Starter Skill Points | `StarterSkillPoints` | **ER (121)** | Int | 4 | [ 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 ] | A: 0, B: 1, C: 2, D: 3, E: 4, F: 5, G: 6, H: 7, I: 8, J: 9, K: 10 | - | - |
@@ -188,9 +188,9 @@ This document details all **150** sandbox options available in the new Sandbox S
 | Vehicle Self Damage | `VehicleSelfDamage` | **FO (144)** | Float | 1 | [ 0, 0.25, 0.35, 0.5, 0.65, 0.75, 0.85, 1, 1.25, 1.5, 2, 2.5, 3 ] | A: 0, B: 0.25, C: 0.35, D: 0.5, E: 0.65, F: 0.75, G: 0.85, H: 1, I: 1.25, J: 1.5, K: 2, L: 2.5, M: 3 | - | - |
 | Electrical Output | `ElectricalOutput` | **FP (145)** | Float | 1 | [ 0.25, 0.5, 0.75, 1, 1.25, 1.5, 2, 3 ] | A: 0.25, B: 0.5, C: 0.75, D: 1, E: 1.25, F: 1.5, G: 2, H: 3 | Yes | - |
 | Celebrate Kills | `SillyCelebrate` | **FQ (146)** | Int | 0 | [ 0, 1, 2 ] | A: 0, B: 1, C: 2 | Yes | - |
-| Big Heads | `SillyBigHeads` | **FR (147)** | Bool |  | [ False, True ] | A: False, B: True | - | - |
-| Tiny Zombies | `SillyTinyZombies` | **FS (148)** | Bool |  | [ False, True ] | A: False, B: True | - | - |
+| Big Heads | `SillyBigHeads` | **FR (147)** | Bool | False | [ False, True ] | A: False, B: True | - | - |
+| Tiny Zombies | `SillyTinyZombies` | **FS (148)** | Bool | False | [ False, True ] | A: False, B: True | - | - |
 | Gravity | `SillyLowGravity` | **FU (150)** | Float | 1 | [ 0.5, 0.6, 0.7, 0.8, 0.9, 1 ] | A: 0.5, B: 0.6, C: 0.7, D: 0.8, E: 0.9, F: 1 | - | - |
-| Silly Sounds | `SillySounds` | **FT (149)** | Bool |  | [ False, True ] | A: False, B: True | - | - |
-| Black and White | `SillyBlackandWhite` | **FV (151)** | Bool |  | [ False, True ] | A: False, B: True | - | - |
+| Silly Sounds | `SillySounds` | **FT (149)** | Bool | False | [ False, True ] | A: False, B: True | - | - |
+| Black and White | `SillyBlackandWhite` | **FV (151)** | Bool | False | [ False, True ] | A: False, B: True | - | - |
 
