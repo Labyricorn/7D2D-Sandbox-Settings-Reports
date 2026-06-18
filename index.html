@@ -3588,24 +3588,37 @@
             "JumpStrength": "Jump Strength",
             "PlayerLevelBonusApplied": "Level Stat Bonus",
             "EnemySpawnMode": "Enemy Spawning",
-            "BlockDamageAI": "AI Block Damage",
-            "BlockDamageAIBM": "AI Blood Moon Block Damage",
+            "BlockDamageAI": "Enemy Block Damage",
+            "BlockDamageAIBM": "BM Block Damage",
             "ZombieMove": "Zombie Day Speed",
             "ZombieMoveNight": "Zombie Night Speed",
             "ZombieFeralMove": "Zombie Feral Speed",
-            "ZombieBMMove": "Zombie Blood Moon Speed",
+            "ZombieBMMove": "Zombie BM Speed",
             "AISmellMode": "AI Smell Mode",
-            "AllowZombieDigging": "AI Digging Mode",
-            "ZombiesEatAnimals": "AI Eat Animals",
+            "AllowZombieDigging": "Zombie Digging",
+            "ZombiesEatAnimals": "Zombies Eat Animals",
             "GlobalGSModifier": "Global Game Stage",
             "BiomeGSModifier": "Biome Game Stage",
-            "WorkstationsInTheWild": "Wild Workstations",
+            "WorkstationsInTheWild": "Workstations In The Wild",
             "BloodMoonEnemyCount": "Blood Moon Count",
             "StormFreq": "Storm Frequency",
             "DayNightLength": "24 Hour Cycle",
             "LootMaxTier": "Loot Max Tier",
             "GlobalLSModifier": "Global Loot Stage",
-            "BiomeLSModifier": "Biome Loot Stage"
+            "BiomeLSModifier": "Biome Loot Stage",
+            "DegradeAmountOnDeath": "Death Degradation Amount",
+            "NewbieCoat": "New Player Buff",
+            "EncumbranceModifier": "Encumbrance Slots",
+            "LoseItemsOnDeathType": "Lose On Death",
+            "LoseItemsOnDeathCount": "Death Loss Count",
+            "DegradeItemsOnDeath": "Death Degradation",
+            "BiomeEnemyDensity": "Enemy Density",
+            "BiomeZombieRespawn": "Enemy Respawn",
+            "EntityDamage": "Enemy Damage Dealt",
+            "EntityIncomingDamage": "Entity Damage In",
+            "ZombieRageChance": "Zombie Rage",
+            "AirDropRandomTime": "Air Drop Variance",
+            "DayLightLength": "Daylight Length"
         };
 
         // Local storage key for custom user presets
@@ -4072,10 +4085,24 @@
             
             const enumName = opt.OptionEnumName;
             
+            // Boolean values
             if (opt.OptionType === "Bool" || opt.OptionType === "Boolean") {
                 return val ? "Yes" : "No";
             }
             
+            // Specific Enum / Select options mapping:
+            if (enumName === "ShowXP") {
+                const map = { 0: "All", 1: "Self", 2: "Party", 3: "None" };
+                return map[val] !== undefined ? map[val] : val;
+            }
+            if (enumName === "MaxEnemyTier") {
+                const map = { 0: "None", 1: "Tier 1", 2: "Tier 2", 3: "Tier 3", 4: "Tier 4", 5: "Elites" };
+                return map[val] !== undefined ? map[val] : val;
+            }
+            if (["BiomeEnemyDensity", "BiomeZombieRespawn", "BiomeAnimalRespawn"].includes(enumName)) {
+                const map = { 0: "Default", 1: "Very Low", 2: "Low", 3: "Medium", 4: "High", 5: "Very High" };
+                return map[val] !== undefined ? map[val] : val;
+            }
             if (enumName === "DeathPenalty") {
                 const map = { 0: "None", 1: "XP Only", 2: "Injured", 3: "Permanent" };
                 return map[val] !== undefined ? map[val] : val;
@@ -4093,14 +4120,15 @@
                 return map[val] !== undefined ? map[val] : val;
             }
             if (enumName === "DropOnDeath") {
-                const map = { 0: "None", 1: "Everything", 2: "Toolbelt Only", 3: "Backpack Only", 4: "Delete All" };
+                const map = { 0: "None", 1: "All", 2: "Toolbelt Only", 3: "Backpack Only", 4: "Delete All" };
                 return map[val] !== undefined ? map[val] : val;
             }
             if (enumName === "DropOnQuit") {
-                const map = { 0: "None", 1: "Everything", 2: "Toolbelt Only", 3: "Backpack Only" };
+                const map = { 0: "None", 1: "All", 2: "Toolbelt Only", 3: "Backpack Only" };
                 return map[val] !== undefined ? map[val] : val;
             }
             
+            // Zombie Speeds
             if (["ZombieMove", "ZombieMoveNight", "ZombieFeralMove", "ZombieBMMove"].includes(enumName)) {
                 const map = { 0: "Walk", 1: "Jog", 2: "Run", 3: "Sprint", 4: "Nightmare" };
                 return map[val] !== undefined ? map[val] : val;
@@ -4114,21 +4142,18 @@
                 return map[val] !== undefined ? map[val] : val;
             }
             
+            // Max Tech Type
             if (enumName === "MaxTechType") {
                 const map = { 3: "Tech 3", 4: "Tech 4", 0: "None" };
                 return map[val] !== undefined ? map[val] : `Tech ${val}`;
             }
-            if (enumName === "WorkstationsInTheWild") {
-                if (val === 0) return "None";
-                return `${Math.round(val * 100)}%`;
-            }
             
+            // Blood Moon Frequency / Range / Air Drops / Loot Respawn
             if (enumName === "BloodMoonFrequency") {
                 if (val === 0) return "Disabled";
                 return `${val} Days`;
             }
             if (enumName === "BloodMoonRange") {
-                if (val === 0) return "0 Days";
                 return `${val} Days`;
             }
             if (enumName === "LootRespawnDays") {
@@ -4139,51 +4164,114 @@
                 if (val === -1) return "Disabled";
                 return `${val} Days`;
             }
+            if (enumName === "VendingResetInterval") {
+                if (val === -1) return "Disabled";
+                return `${val} Days`;
+            }
             if (enumName === "AirDropFrequency") {
                 if (val === 0) return "Disabled";
                 return `${val} Days`;
             }
             
+            // Blood Moon Count
             if (enumName === "BloodMoonEnemyCount") {
                 return `${val} Enemies`;
             }
             
+            // Blood Moon Warning
             if (enumName === "BloodMoonWarning") {
                 const map = { 0: "Disabled", 1: "Morning", 2: "Evening" };
                 return map[val] !== undefined ? map[val] : val;
             }
             
+            // Air Drop Variance (AirDropRandomTime)
             if (enumName === "AirDropRandomTime") {
                 if (val === 0) return "None";
                 return `${val} Hours`;
             }
             
-            if (enumName === "TraderArea") {
+            // Trader Protection (TraderProtection)
+            if (enumName === "TraderProtection") {
                 const map = { 0: "Enabled", 1: "Disabled", 2: "Inside Only" };
                 return map[val] !== undefined ? map[val] : val;
             }
-            if (enumName === "TraderHourPresets") {
-                const map = { 0: "Default", 1: "Always Open", 2: "Extended" };
-                return map[val] !== undefined ? map[val] : `Preset ${val}`;
+            // Trader Hours (TraderHours)
+            if (enumName === "TraderHours") {
+                const map = {
+                    0: "Default",
+                    1: "Always Open",
+                    2: "Extended",
+                    3: "Closed",
+                    4: "Morning Only",
+                    5: "Day Only",
+                    6: "Night Only"
+                };
+                return map[val] !== undefined ? map[val] : val;
             }
             
+            // Item Repair Types
             if (enumName === "RepairTypes") {
                 const map = { 0: "None", 1: "Kits", 2: "Materials", 3: "Both" };
                 return map[val] !== undefined ? map[val] : val;
             }
             
+            // Encumbrance Slots / Encumbrance Modifier
             if (enumName === "EncumbranceModifier") {
-                const map = { 1: "Default", 10: "Max", 0.7: "Low", 0: "None" };
+                const map = { 1: "Default", 10: "Max", 0.7: "Medium", 0.35: "Low", 0: "None" };
                 return map[val] !== undefined ? map[val] : `${Math.round(val * 100)}%`;
             }
+
+            // Quests per Day Limit
+            if (enumName === "QuestProgressionDailyLimit") {
+                if (val === -1) return "Unlimited";
+                return val;
+            }
+
+            // Crop Growth Speed
+            if (enumName === "CropGrowthSpeed") {
+                if (val === 1000) return "Instant";
+                if (val === 0) return "Disabled";
+                if (val === 1) return "Default";
+                return `${Math.round(val * 100)}%`;
+            }
             
+            // Floats with "Default" for value 1
+            const defaultIfOneEnums = [
+                "GlobalGSModifier", "BiomeGSModifier", "HeatMapSensitivity", 
+                "GlobalLSModifier", "BiomeLSModifier", "POITierLSModifier", "LootTimer", "LootBagChance",
+                "GlobalLootCount", "FoodLootCount", "DrinkLootCount", "MedicalLootCount", "AmmoLootCount", 
+                "ResourceLootCount", "ArmorLootCount", "MeleeLootCount", "RangedLootCount", "DukesLootCount", 
+                "CraftingMagazinesLootCount", "TreasureMapChance", "MiningOutput", "CropOutput", "SeedDropOutput", 
+                "HarvestingOutput", "CraftingTime", "CraftingInput", "CraftingOutput", "ScrappingOutput", 
+                "DewCollectorTime", "ApiaryTime", "ApiaryInput", "ItemDegradation", "TraderItemAbundance", 
+                "VendingItemAbundance", "TraderSellPrices", "TraderBuyPrices", "VehicleFuelUsage", 
+                "VehicleEntityDamage", "VehicleBlockDamage", "VehicleSelfDamage", "ElectricalOutput", "SillyLowGravity"
+            ];
+
+            if (defaultIfOneEnums.includes(enumName)) {
+                if (val === 1) return "Default";
+                if (val === 0) return "None";
+                return `${Math.round(val * 100)}%`;
+            }
+
+            // Workstations In The Wild
+            if (enumName === "WorkstationsInTheWild") {
+                if (val === 0) return "None";
+                return `${Math.round(val * 100)}%`;
+            }
+
+            // Max Degrade Amount (percentage)
+            if (enumName === "MaxDegradationAmount") {
+                return `${Math.round(val * 100)}%`;
+            }
+
+            // Standard percentages
             const percentageEnums = [
                 "XPMultiplier",
                 "RangedDamage", "MeleeDamage", "BlockDamage", "TerrainDamage", "HeadshotMultiplier", "IncomingDamage",
                 "EntityDamage", "EntityIncomingDamage", "BlockDamageAI", "BlockDamageAIBM",
-                "WalkSpeed", "RunSpeed", "CrouchSpeed",
-                "GlobalLSModifier", "BiomeLSModifier", "HarvestAmount", "GlobalGSModifier", "BiomeGSModifier",
-                "CropGrowthSpeed", "ApiaryInput", "DewCollectorInput", "CollectorOutput", "StormFreq", "HeatMapSensitivity"
+                "WalkSpeed", "RunSpeed", "CrouchSpeed", "JumpStrength", "StaminaRegen", "StaminaUsage",
+                "ZombieRageChance", "StormFreq"
             ];
             
             if (percentageEnums.includes(enumName) || opt.IsPercent) {
