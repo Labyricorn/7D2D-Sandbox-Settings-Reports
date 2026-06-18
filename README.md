@@ -6,6 +6,33 @@ These resources are compiled with the intent to aid developers building server m
 
 ---
 
+## Web-based Configurator Tool
+
+An interactive companion tool is available online at:
+👉 **[7 Days to Die Sandbox Options Configurator](https://labyricorn.github.io/7D2D-Sandbox-Settings-Reports)**
+
+### Key Features & Usage
+
+*   **Interactive UI:** Configure all 150+ sandbox options directly inside a responsive, themed web interface mimicking the game's menu style.
+*   **Real-time SandboxCode Generation:** As you tweak options, the corresponding compact `SandboxCode` is generated dynamically and shown in the sidebar.
+*   **Paste & Import:** You can click **Paste Code** to input any existing `SandboxCode` and instantly load its settings into the visual configurator.
+*   **Server Config XML:** Generate the exact `<property name="SandboxCode" value="..." />` line ready to be copied and pasted directly into your server's `serverconfig.xml` file.
+*   **Copy Web Link:** Click **Copy Web Link** in the footer to copy a shareable link of your active configuration directly to your clipboard.
+
+### URL Code Sharing (`/?code=`)
+
+The configurator supports loading settings directly from the URL query string using the `?code=` parameter. 
+
+For example, loading the URL:
+```url
+https://labyricorn.github.io/7D2D-Sandbox-Settings-Reports/?code=AAAKABKACKADKARDBNB
+```
+will automatically open the configurator and import the settings defined by that sandbox code (in this case, the **Scavenger** difficulty preset). 
+
+As you configure settings, the web browser's URL is dynamically updated with the active code. You can copy the browser URL or click the **Copy Web Link** button to easily share your custom setups with players or server admins.
+
+---
+
 ## Repository Contents
 
 *   **[Sandbox Settings Report (sandbox_settings_report.md)](sandbox_settings_report.md)**: A complete reference table documenting all **150 sandbox options** grouped by their interface categories (Player, Entities, World, Resources, Progression, and Claim). It exposes:
