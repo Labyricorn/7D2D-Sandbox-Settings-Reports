@@ -4237,15 +4237,7 @@
             
             // Floats with "Default" for value 1
             const defaultIfOneEnums = [
-                "GlobalGSModifier", "BiomeGSModifier", "HeatMapSensitivity", 
-                "GlobalLSModifier", "BiomeLSModifier", "POITierLSModifier", "LootTimer", "LootBagChance",
-                "GlobalLootCount", "FoodLootCount", "DrinkLootCount", "MedicalLootCount", "AmmoLootCount", 
-                "ResourceLootCount", "ArmorLootCount", "MeleeLootCount", "RangedLootCount", "DukesLootCount", 
-                "CraftingMagazinesLootCount", "TreasureMapChance", "MiningOutput", "CropOutput", "SeedDropOutput", 
-                "HarvestingOutput", "CraftingTime", "CraftingInput", "CraftingOutput", "ScrappingOutput", 
-                "DewCollectorTime", "ApiaryTime", "ApiaryInput", "ItemDegradation", "TraderItemAbundance", 
-                "VendingItemAbundance", "TraderSellPrices", "TraderBuyPrices", "VehicleFuelUsage", 
-                "VehicleEntityDamage", "VehicleBlockDamage", "VehicleSelfDamage", "ElectricalOutput", "SillyLowGravity"
+                "GlobalGSModifier", "BiomeGSModifier", "HeatMapSensitivity"
             ];
 
             if (defaultIfOneEnums.includes(enumName)) {
@@ -4271,7 +4263,15 @@
                 "RangedDamage", "MeleeDamage", "BlockDamage", "TerrainDamage", "HeadshotMultiplier", "IncomingDamage",
                 "EntityDamage", "EntityIncomingDamage", "BlockDamageAI", "BlockDamageAIBM",
                 "WalkSpeed", "RunSpeed", "CrouchSpeed", "JumpStrength", "StaminaRegen", "StaminaUsage",
-                "ZombieRageChance", "StormFreq"
+                "ZombieRageChance", "StormFreq",
+                "GlobalLSModifier", "BiomeLSModifier", "POITierLSModifier", "LootTimer", "LootBagChance",
+                "GlobalLootCount", "FoodLootCount", "DrinkLootCount", "MedicalLootCount", "AmmoLootCount", 
+                "ResourceLootCount", "ArmorLootCount", "MeleeLootCount", "RangedLootCount", "DukesLootCount", 
+                "CraftingMagazinesLootCount", "TreasureMapChance", "MiningOutput", "CropOutput", "SeedDropOutput", 
+                "HarvestingOutput", "CraftingTime", "CraftingInput", "CraftingOutput", "ScrappingOutput", 
+                "DewCollectorTime", "ApiaryTime", "ApiaryInput", "ItemDegradation", "TraderItemAbundance", 
+                "VendingItemAbundance", "TraderSellPrices", "TraderBuyPrices", "VehicleFuelUsage", 
+                "VehicleEntityDamage", "VehicleBlockDamage", "VehicleSelfDamage", "ElectricalOutput", "SillyLowGravity"
             ];
             
             if (percentageEnums.includes(enumName) || opt.IsPercent) {
