@@ -537,7 +537,7 @@
 
         .footer-btn {
             height: 26px;
-            width: 90px;
+            width: 110px;
         }
 
         /* Paste overlay modal */
@@ -722,7 +722,7 @@
                 <footer class="panel-footer">
                     <div class="footer-btn-group">
                         <button class="game-btn footer-btn" onclick="resetToDefaults()">Defaults</button>
-                        <button class="game-btn footer-btn" onclick="copyUrlToClipboard()">Copy URL</button>
+                        <button class="game-btn footer-btn" onclick="copyUrlToClipboard()">Copy Web Link</button>
                     </div>
                 </footer>
             </main>
@@ -4483,9 +4483,9 @@
 
         function copyUrlToClipboard() {
             navigator.clipboard.writeText(window.location.href).then(() => {
-                showToast("URL copied to clipboard!");
+                showToast("Web Link copied to clipboard!");
             }).catch(err => {
-                showToast("Failed to copy URL");
+                showToast("Failed to copy Web Link");
             });
         }
 
