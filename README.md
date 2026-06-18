@@ -62,10 +62,4 @@ In *7 Days to Die* (3.0), the entire state of the sandbox menu is serialized int
 
 ---
 
-## Extraction Methodology
-
-The data contained in these reports was extracted directly from the game's compiled asset files:
-*   The raw preset structures and parameters are loaded by `SandboxOptionManager::LoadInternalPresets` from the compiled `TextAsset` located at `Data/Sandbox/sandbox_presets`.
-*   This asset was retrieved by parsing the `UnityFS` version 8 file structure of `7DaysToDie_Data/data.unity3d`. Individual 128KB blocks (specifically Blocks 310–320) were decompressed using raw LZ4 block decompression starting from an aligned physical offset of `7520`.
-
 *Disclaimer: This is a purely academic project of technical exploration. All properties, asset names, and game titles are trademarks of The Fun Pimps.*
