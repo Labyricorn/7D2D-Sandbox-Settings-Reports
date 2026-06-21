@@ -95,13 +95,21 @@
             height: 100%;
         }
 
-        /* Sidebar Logo */
-        .sidebar-logo {
+        /* Sidebar Title */
+        .sidebar-title {
             width: 100%;
-            height: auto;
-            border: 1px solid var(--border-grey);
-            box-shadow: 0 0 15px rgba(255, 0, 0, 0.15);
+            text-align: center;
+            color: #ffffff;
+            font-size: 1.2rem;
+            font-weight: bold;
+            padding: 0.75rem 0;
+            border: 1px solid var(--border-grey, #333);
+            background: rgba(139, 0, 0, 0.2);
+            box-shadow: 0 0 10px rgba(255, 0, 0, 0.1);
             margin-bottom: 0.25rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            box-sizing: border-box;
         }
 
         /* Steppers */
@@ -663,8 +671,8 @@
             
             <!-- Left Panel (Presets & Actions) -->
             <aside class="left-panel">
-                <!-- Sidebar Logo -->
-                <img src="laby_sandbox_encoder.png" class="sidebar-logo" alt="Laby's Sandbox Encoder">
+                <!-- Sidebar Title -->
+                <div class="sidebar-title">Labyricorn's Sandbox Encoder</div>
 
                 <!-- Stepper rows -->
                 <div class="selector-row">
@@ -4195,6 +4203,8 @@
                 return map[val] !== undefined ? map[val] : val;
             }
             if (enumName === "SmeltingType") {
+                if (val === true || val === "true") return "Recipes";
+                if (val === false || val === "false") return "Smelter";
                 return val ? "Recipes" : "Smelter";
             }
             if (enumName === "TraderProtection") {
@@ -4208,15 +4218,19 @@
             
             // Specific Enum / Select options mapping:
             if (enumName === "ShowXP") {
-                const map = { 0: "All", 1: "Self", 2: "Party", 3: "None" };
+                const map = { 0: "All", 1: "Bar Only", 2: "Notifications Only", 3: "None" };
                 return map[val] !== undefined ? map[val] : val;
             }
             if (enumName === "MaxEnemyTier") {
-                const map = { 0: "None", 1: "Tier 1", 2: "Tier 2", 3: "Tier 3", 4: "Tier 4", 5: "Elites" };
+                const map = { 0: "Normals", 1: "Strongs", 2: "Specials", 3: "Ferals", 4: "Radiated", 5: "Elites" };
                 return map[val] !== undefined ? map[val] : val;
             }
-            if (["BiomeEnemyDensity", "BiomeZombieRespawn", "BiomeAnimalRespawn"].includes(enumName)) {
+            if (enumName === "BiomeEnemyDensity") {
                 const map = { 0: "Default", 1: "Very Low", 2: "Low", 3: "Medium", 4: "High", 5: "Very High" };
+                return map[val] !== undefined ? map[val] : val;
+            }
+            if (["BiomeZombieRespawn", "BiomeAnimalRespawn"].includes(enumName)) {
+                const map = { 0: "Default", 1: "Very Slow", 2: "Slow", 3: "Normal", 4: "Fast", 5: "Very Fast" };
                 return map[val] !== undefined ? map[val] : val;
             }
             if (enumName === "DeathPenalty") {
@@ -4256,8 +4270,8 @@
             
             // Max Tech Type
             if (enumName === "MaxTechType") {
-                const map = { 3: "Tech 3", 4: "Tech 4", 0: "None" };
-                return map[val] !== undefined ? map[val] : `Tech ${val}`;
+                const map = { 0: "None", 1: "Tech 0", 2: "Tech 1", 3: "Tech 2", 4: "Tech 3" };
+                return map[val] !== undefined ? map[val] : val;
             }
             
             // Blood Moon Frequency / Range / Air Drops / Loot Respawn
@@ -4294,8 +4308,8 @@
             
             // Air Drop Variance (AirDropRandomTime)
             if (enumName === "AirDropRandomTime") {
-                if (val === 0) return "None";
-                return `${val} Hours`;
+                const map = { 0: "None", 1: "Morning", 2: "Mid Day", 3: "Evening", 4: "Night", 5: "All Day", 6: "Any" };
+                return map[val] !== undefined ? map[val] : val;
             }
             
             // Trader Hours (TraderHours)
@@ -4314,7 +4328,7 @@
             
             // Item Repair Types
             if (enumName === "RepairTypes") {
-                const map = { 0: "None", 1: "Kits", 2: "Materials", 3: "Both" };
+                const map = { 0: "None", 1: "Repair Only", 2: "Combine Only", 3: "Both" };
                 return map[val] !== undefined ? map[val] : val;
             }
             
@@ -4333,20 +4347,20 @@
             // Crop Growth Speed
             if (enumName === "CropGrowthSpeed") {
                 if (val === 1000) return "Instant";
-                if (val === 0) return "NONE";
-                if (val === 1) return "Default";
+                if (val === 0) return "None";
                 return `${Math.round(val * 100)}%`;
             }
             
-            // Floats with "Default" for value 1
-            const defaultIfOneEnums = [
-                "BiomeGSModifier", "HeatMapSensitivity"
-            ];
+            // HeatMapSensitivity
+            if (enumName === "HeatMapSensitivity") {
+                const map = { 0: "Disabled", 1: "Very Low", 2: "Low", 3: "Default", 4: "High", 5: "Very High" };
+                return map[val] !== undefined ? map[val] : val;
+            }
 
-            if (defaultIfOneEnums.includes(enumName)) {
-                if (val === 1) return "Default";
-                if (val === 0) return "None";
-                return `${Math.round(val * 100)}%`;
+            // BiomeGSModifier
+            if (enumName === "BiomeGSModifier") {
+                const map = { 0: "Very Low", 1: "Low", 2: "Default", 3: "High", 4: "Very High" };
+                return map[val] !== undefined ? map[val] : val;
             }
 
             // Workstations In The Wild
@@ -4356,7 +4370,9 @@
             }
 
             // Max Degrade Amount (percentage)
+            // Max Degrade Amount (percentage)
             if (enumName === "MaxDegradationAmount") {
+                if (val === 0) return "None";
                 return `${Math.round(val * 100)}%`;
             }
 
