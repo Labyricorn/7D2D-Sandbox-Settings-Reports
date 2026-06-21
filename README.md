@@ -1,17 +1,24 @@
-# 7 Days to Die - 3.0 'Sandbox Siege' Specifications
+<div align="center">
+  <img src="laby_sandbox_encoder.png" alt="Labyricorn's Sandbox Encoder Logo" width="300" />
 
-This repository contains technical specifications and configuration details for the **Sandbox Options** introduced in the 3.0 "Sandbox Siege" update of *7 Days to Die*. 
+  # 7 Days to Die - 3.0 'Sandbox Siege' Specifications
+  
+  **An interactive configurator and technical reference for the new Sandbox Options introduced in the 3.0 update of *7 Days to Die*.**
+  
+  [![Configurator Online](https://img.shields.io/badge/Launch-Web_Configurator-2ea44f?style=for-the-badge&logo=github)](https://labyricorn.github.io/7D2D-Sandbox-Settings-Reports)
 
-These resources are compiled with the intent to aid developers building server management applications, web-based control panels, and automated game configuration utilities for dedicated servers.
+</div>
 
 ---
 
-## Web-based Configurator Tool
+These resources are compiled with the intent to aid developers building server management applications, web-based control panels, and automated game configuration utilities for dedicated servers.
+
+## 🛠 Web-based Configurator Tool
 
 An interactive companion tool is available online at:
 👉 **[7 Days to Die Sandbox Options Configurator](https://labyricorn.github.io/7D2D-Sandbox-Settings-Reports)**
 
-### Key Features & Usage
+### Key Features
 
 *   **Interactive UI:** Configure all 150+ sandbox options directly inside a responsive, themed web interface mimicking the game's menu style.
 *   **Real-time SandboxCode Generation:** As you tweak options, the corresponding compact `SandboxCode` is generated dynamically and shown in the sidebar.
@@ -33,7 +40,7 @@ As you configure settings, the web browser's URL is dynamically updated with the
 
 ---
 
-## Repository Contents
+## 📂 Repository Contents
 
 *   **[Sandbox Settings Report (sandbox_settings_report.md)](sandbox_settings_report.md)**: A complete reference table documenting all **150 sandbox options** grouped by their interface categories (Player, Entities, World, Resources, Progression, and Claim). It exposes:
     *   XML property / Enum names
@@ -49,7 +56,7 @@ As you configure settings, the web browser's URL is dynamically updated with the
 
 ---
 
-## Technical Overview: The Sandbox Code
+## 🧠 Technical Overview: The Sandbox Code
 
 In *7 Days to Die* (3.0), the entire state of the sandbox menu is serialized into a compact, human-readable string called the `SandboxCode` (e.g., `AAAJABJACJADJARFBNC`). This encoding allows complex server configurations to be shared as a single code block.
 
@@ -62,4 +69,16 @@ In *7 Days to Die* (3.0), the entire state of the sandbox menu is serialized int
 
 ---
 
-*Disclaimer: This is a purely academic project of technical exploration. All properties, asset names, and game titles are trademarks of The Fun Pimps.*
+## 👨‍💻 Local Development
+
+Want to test changes locally or contribute? This tool is built entirely with vanilla HTML, CSS, and JavaScript. 
+
+1. Clone the repository: `git clone https://github.com/Labyricorn/7D2D-Sandbox-Settings-Reports`
+2. Open `index.html` in your favorite web browser.
+3. Edit the code and refresh the page to see your changes instantly! No build step required.
+
+---
+
+<div align="center">
+  <em>Disclaimer: This is a purely academic project of technical exploration. All properties, asset names, and game titles are trademarks of The Fun Pimps.</em>
+</div>
